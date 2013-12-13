@@ -9,3 +9,14 @@ function start(){
 sleep(10000)
 return ("i'm up!")
 }
+
+
+//returning a console.log error
+filterFn(dir, filterStr, function (err, list) {
+  if (err)
+    return console.error('There was an error:', err)
+
+  list.forEach(function (file) {
+    console.log(file)
+  })
+})
