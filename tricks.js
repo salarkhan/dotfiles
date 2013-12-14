@@ -11,12 +11,11 @@ return ("i'm up!")
 }
 
 
-//returning a console.log error
-filterFn(dir, filterStr, function (err, list) {
-  if (err)
-    return console.error('There was an error:', err)
+//returning console.error
+var http = require('http')
 
-  list.forEach(function (file) {
-    console.log(file)
-  })
+http.get(process.argv[2], function (response) {
+  response.setEncoding('utf8')
+  response.on('data', console.log)
+  response.on('error', console.error)
 })
