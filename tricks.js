@@ -19,3 +19,7 @@ http.get(process.argv[2], function (response) {
   response.on('data', console.log)
   response.on('error', console.error)
 })
+
+
+//css selector with jQuery
+var anchor = $(a[href='/user/1'])
