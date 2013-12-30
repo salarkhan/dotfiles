@@ -17,4 +17,14 @@ html, body {
 }
 /* ----------------------------------------------------------------- */
 
+/*Responsive Nav Bar*/
+ul{
+  width: 100%;
+  display: table;
+}
 
+#navList li {
+  display: table-cell;
+  width: auto;
+  text-align: center;
+}
