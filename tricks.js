@@ -10,7 +10,6 @@ sleep(10000)
 return ("i'm up!")
 }
 
-
 //returning console.error
 var http = require('http')
 
@@ -23,3 +22,16 @@ http.get(process.argv[2], function (response) {
 
 //css selector with jQuery
 var anchor = $(a[href='/user/1'])
+
+//custom javascript assert
+function test(number){
+    return number - 4
+}
+
+function assert(condition, description){
+    if(!condition){
+        throw description || 'failed'
+    }
+}
+
+assert(test(3) === 4, 'line 21, tests 3==4')
