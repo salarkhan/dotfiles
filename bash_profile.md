@@ -49,7 +49,7 @@ git_prompt ()
   echo " [$git_color$git_branch${c_reset}]"
 }
 
-# Set sublime to the default editor and alias it to `e` if it is present
+# Set sublime to the default editor and alias it to `subl` if it is present
 subl=`which sublime`
 test $subl &&
 export EDITOR="$subl --wait" &&
