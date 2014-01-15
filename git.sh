@@ -4,10 +4,10 @@ git fetch --all
 git pull --all
 
 # use sublime for git commit -v
-`git config --global core.editor "subl -n -w"`
+git config --global core.editor "subl -n -w"
 
 # setting up sublime symlink
-`https://gist.github.com/artero/1236170`
+https://gist.github.com/artero/1236170
 
 # git filter to change email addresses globally
 # can also replace with GIT_AUTHOR_EMAIL -- use `git log` to check
