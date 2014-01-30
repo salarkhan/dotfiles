@@ -8,3 +8,10 @@ killall Finder
 #The reverse is
 defaults delete com.apple.finder AppleShowAllFiles
 killall Finder
+
+#check if variable is an integer
+if echo $var | egrep -q '^[0-9]+$'; then
+    "its a number, fuck ya"
+else
+    "noooo"
+fi
