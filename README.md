@@ -1,3 +1,2 @@
-make life easy
+dotfiles
 ============
-Language agnostic.

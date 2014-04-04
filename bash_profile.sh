@@ -17,9 +17,6 @@ _look_for_executables_in "/usr/local/share/npm/bin" &&
   # Executables from the node modules in the current directory
   export PATH="./node_modules/.bin:$PATH"
 
-# Clojure Executables
-_look_for_executables_in "$HOME/.cljr/bin"
-
 # Ruby Executables (via rbenv)
 test -d "$HOME/.rbenv" && eval "$(rbenv init -)"
 
@@ -62,17 +59,13 @@ c_git_dirty='\[\e[0;31m\]'
 PROMPT_COMMAND='PS1="${c_path}\W${c_reset}$(git_prompt) :> "'
 export PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(git_prompt)\[\033[0m\]:> '
 
-# Colors ls should use for folders, files, symlinks etc, see `man ls` and
-# search for LSCOLORS
+# Colors ls should use for folders, files, symlinks etc, see `man ls` and search for LSCOLORS
+# This particular setup is for a white terminal
 export LSCOLORS=ExGxFxdxCxDxDxaccxaeex
 
 # ----------------------------
 # ALIASES
 # ----------------------------
-
-# Annotate file types : -F
-# Colors              : -G
-# Human file sizes    : -h
 alias ls='ls -Gh'
 
 # Set sublime to the default editor and alias it to `subl` if it is present
@@ -80,8 +73,3 @@ subl=`which sublime`
 test $subl &&
   export EDITOR="$subl --wait" &&
   alias subl=sublime
-
-# Git
-alias ga='git add -p'
-alias gv='git commit -v'
-alias gpo='git push origin'
