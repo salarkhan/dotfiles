@@ -1,2 +1,2 @@
-dotfiles
+make-life-easy
 ============
