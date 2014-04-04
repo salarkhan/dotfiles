@@ -1,38 +1,27 @@
-# $VARIABLE will render before the rest of the command is executed
 echo "logged in as $USER."
 
 # ----------------------------
-# PLACES TO LOOK FOR EXECUTABLES
+# PATH CONFIG
 # ----------------------------
+# Only adds the path to $PATH if it exists
 function _look_for_executables_in {
-  # Only adds the path to $PATH if it exists
   test -d $1 && export PATH="$1:$PATH"
 }
 
 # Prepend /usr/local/bin so that homebrew-installed executables override default OS ones
 _look_for_executables_in "/usr/local/bin"
-
-# Global NPM Executables
-_look_for_executables_in "/usr/local/share/npm/bin" &&
-  # Executables from the node modules in the current directory
-  export PATH="./node_modules/.bin:$PATH"
-
+# Global NPM Executables && node modules in the current directory
+_look_for_executables_in "/usr/local/share/npm/bin" && export PATH="./node_modules/.bin:$PATH"
 # Ruby Executables (via rbenv)
 test -d "$HOME/.rbenv" && eval "$(rbenv init -)"
-
-# Heroku Toolbelt
-_look_for_executables_in "/usr/local/heroku/bin"
-
 # Custom Executables
 _look_for_executables_in "$HOME/bin"
 
 # ----------------------------
 # PROMPT CONFIG
 # ----------------------------
-
 # Determines if the git branch you are on is clean or dirty
-git_prompt ()
-{
+git_prompt () {
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
     return 0
   fi
@@ -45,7 +34,6 @@ git_prompt ()
   echo " [$git_color$git_branch${c_reset}]"
 }
 
-# A more colorful prompt
 # \[\e[0m\] resets the color to default color
 c_reset='\[\e[0m\]'
 #  \e[0;31m\ sets the color to red
@@ -66,6 +54,9 @@ export LSCOLORS=ExGxFxdxCxDxDxaccxaeex
 # ----------------------------
 # ALIASES
 # ----------------------------
+# Annotate file types  : -F
+# Colors              : -G
+# Human file sizes    : -h
 alias ls='ls -Gh'
 
 # Set sublime to the default editor and alias it to `subl` if it is present
