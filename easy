@@ -19,10 +19,12 @@ if [[ $1 == "init" ]]
 then
   cp .bash_profile $HOME
   cp .gitconfig $HOME
+  ./keyboard-repeat
+  ./caps-to-ctrl
+  echo "complete. some changes require logout to take place"
 elif [[ $1 == "help" ]]
-  help
 then 
-  
+  help
 else 
   menu
 fi
