@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+function menu () {
+    echo "make-life-easy: a simple script that installs my dotfiles & configs."
+    echo ""
+    echo "    easy help          -prints out all configs that make-life-easy implements"
+    echo "    easy init          -installs configs" 
+}
+
+
+function help () {
+    echo "configs"
+    echo ""
+    echo "    keyboard-repeat   -sets keypress repeat to max"
+    echo "    caps-to-ctrl      -maps ctrl to caps lock" 
+}
+
+if [[ $1 == "init" ]]
+then
+  cp .bash_profile $HOME
+  cp .gitconfig $HOME
+elif [[ $1 == "help" ]]
+  help
+then 
+  
+else 
+  menu
+fi
