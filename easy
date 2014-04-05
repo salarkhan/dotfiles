@@ -3,8 +3,8 @@
 function menu () {
     echo "make-life-easy: a simple script that installs my dotfiles & configs."
     echo ""
-    echo "    easy help          -prints out all configs that make-life-easy implements"
-    echo "    easy init          -installs configs" 
+    echo "   ./easy help         -prints out all configs that make-life-easy implements"
+    echo "   ./easy init         -installs configs" 
 }
 
 
