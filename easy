@@ -11,20 +11,21 @@ function menu () {
 function help () {
     echo "configs"
     echo ""
-    echo "    keyboard-repeat   -sets keypress repeat to max"
-    echo "    caps-to-ctrl      -maps ctrl to caps lock" 
+    echo "    keyboard-repeat    -sets keypress repeat to max"
+    echo "    caps-to-ctrl       -maps ctrl to caps lock"
+    exit 0 
 }
 
-if [[ $1 == "init" ]]
-then
+function init () {
   cp .bash_profile $HOME
   cp .gitconfig $HOME
   ./keyboard-repeat
   ./caps-to-ctrl
   echo "complete. some changes require logout to take place"
-elif [[ $1 == "help" ]]
-then 
-  help
-else 
-  menu
-fi
+  exit 0
+}
+
+
+[[ $1 = "init" ]] && init
+[[ $1 = "help" ]] && help
+menu
