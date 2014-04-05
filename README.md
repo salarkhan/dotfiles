@@ -1,4 +1,4 @@
 make-life-easy
 ============
-To install: clone down the repository, open up terminal, and run `./easy`.
+ Clone down the repo, open up terminal, and run `./easy`. Your life is now easy.
 
