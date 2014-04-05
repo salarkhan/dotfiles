@@ -1,1 +1,4 @@
 #!/usr/bin/env bash
+
+cp .bash_profile $HOME
+cp .gitconfig $HOME
