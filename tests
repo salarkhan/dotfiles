@@ -1,3 +1,12 @@
+#check for .bash_profile
+test -e "$HOME/.bash_profile"
+
+#check for .gitconfig
+test -e "$HOME/.gitconfig"
+
+#check for .vimrc
+test -e "$HOME/.vimrc"
+
 #caps-to-ctrl
 ./keyboard_ids | while read vendor_id product_id
 do

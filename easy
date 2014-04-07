@@ -19,6 +19,7 @@ function help () {
 function init () {
   cp .bash_profile $HOME
   cp .gitconfig $HOME
+  cp .vimrc $HOME
   ./keyboard-repeat
   ./caps-to-ctrl
   echo "complete. some changes require logout to take place"
