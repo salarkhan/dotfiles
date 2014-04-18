@@ -4,4 +4,11 @@
 	ap = add -p
 	aa = add -A
 	pso = push origin
-	amend= commit -v --amend
+	amend = commit -v --amend
+  plog = log --oneline
+[core]
+	editor = vim
+[color "sh"]
+	branch = black
+	workdir = cyan
+	upstream-state = cyan
