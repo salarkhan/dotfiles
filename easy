@@ -17,11 +17,11 @@ function help () {
 }
 
 function init () {
-  cp .bash_profile $HOME
-  cp .gitconfig $HOME
-  cp .vimrc $HOME
-  ./keyboard-repeat
-  ./caps-to-ctrl
+  cp dotfiles/.bash_profile $HOME
+  cp dotfiles/.gitconfig $HOME
+  cp dotfiles/.vimrc $HOME
+  ./hardware/keyboard-repeat
+  ./hardware/caps-to-ctrl
   echo "complete. some changes require logout to take place"
   exit 0
 }

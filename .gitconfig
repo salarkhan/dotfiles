@@ -1,7 +1,0 @@
-[alias]
-	co = checkout
-	ci = commit -v
-	ap = add -p
-	aa = add -A
-	pso = push origin
-	amend= commit -v --amend
