@@ -1,11 +1,12 @@
 #check for .bash_profile
-test -e "$HOME/.bash_profile"
+test -e "$HOME/.bash_profile" || echo ".bash_profile failed"
 
 #check for .gitconfig
-test -e "$HOME/.gitconfig"
+test -e "$HOME/.gitconfig" || echo ".bash_profile failed"
+
 
 #check for .vimrc
-test -e "$HOME/.vimrc"
+test -e "$HOME/.vimrc" || echo ".vimrc failed"
 
 #caps-to-ctrl
 ./hardware/keyboard-ids | while read vendor_id product_id
@@ -13,9 +14,9 @@ do
     [[ $(defaults -currentHost read -g com.apple.keyboard.modifiermapping.$vendor_id-$product_id-0) == *"HIDKeyboardModifierMappingDst = 2;
         HIDKeyboardModifierMappingSrc = 0;
     }
-)" ]] || exit 1
+)" ]] || echo "caps-to-ctrl failed"
 done
 
 #keyboard-repeat
 [[ $(defaults read NSGlobalDomain KeyRepeat) == 1 &&
-$(defaults read NSGlobalDomain InitialKeyRepeat) == 15 ]] || exit 1
+$(defaults read NSGlobalDomain InitialKeyRepeat) == 15 ]] || echo "keyboard-repeat failed"
