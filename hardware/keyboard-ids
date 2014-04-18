@@ -1,0 +1,1 @@
+ioreg -n IOHIDKeyboard -r | grep -e VendorID\" -e ProductID | grep -o '\d.*' | paste - -
