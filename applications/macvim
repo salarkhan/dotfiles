@@ -1,0 +1,1 @@
+which -s brew && brew install macvim --override-system-vim
