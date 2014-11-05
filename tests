@@ -4,7 +4,6 @@ test -e "$HOME/.bash_profile" || echo ".bash_profile failed"
 #check for .gitconfig
 test -e "$HOME/.gitconfig" || echo ".bash_profile failed"
 
-
 #check for .vimrc
 test -e "$HOME/.vimrc" || echo ".vimrc failed"
 

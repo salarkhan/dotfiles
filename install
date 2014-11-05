@@ -22,9 +22,6 @@ function init () {
   cp dotfiles/.vimrc $HOME
   ./hardware/keyboard-repeat
   ./hardware/caps-to-ctrl
-  ./applications/homebrew
-  ./applications/macvim
-  ./applications/ctrlp
   echo "complete. some changes require logout to take place"
   exit 0
 }
