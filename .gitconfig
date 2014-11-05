@@ -1,0 +1,19 @@
+[alias]
+	co = checkout
+	ci = commit -v
+	ap = add -p
+	aa = add -A
+	pso = push origin
+	amend = commit -v --amend
+    plog = log --oneline
+    s = status --short
+    d = diff
+[core]
+	editor = vim
+[color "sh"]
+	branch = black
+	workdir = cyan
+	upstream-state = cyan
+[user]
+	name = Salar Khan
+	email = salar.k3@gmail.com
