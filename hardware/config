@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 function menu () {
-    echo "dotfiles: a simple script that installs my dotfiles & configs."
+    echo "configs: a simple script that installs my hardware configs."
     echo ""
-    echo "  ./dotfiles help     -prints out all configs"
-    echo "  ./dotfiles install  -installs configs" 
+    echo "  ./configs help     -prints out all configs"
+    echo "  ./configs install  -installs configs"
 }
 
 
@@ -13,13 +13,10 @@ function help () {
     echo ""
     echo "  keyboard-repeat     -sets keypress repeat to max"
     echo "  caps-to-ctrl        -maps ctrl to caps lock"
-    exit 0 
+    exit 0
 }
 
 function install () {
-  cp .bash_profile $HOME
-  cp .gitconfig $HOME
-  cp .vimrc $HOME
   ./hardware/keyboard-repeat
   ./hardware/caps-to-ctrl
   echo "complete. some changes require logout to take place"

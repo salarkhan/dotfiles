@@ -17,11 +17,18 @@ Plugin 'gmarik/Vundle.vim'
 " ---------------------------------
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-ragtag'
+Plugin 'tpope/vim-repeat'
 Plugin 'lunaru/vim-less'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'fatih/vim-go'
+Plugin 'hdima/python-syntax'
+Plugin 'skammer/vim-css-color'
 
 " end vundle, required
-call vundle#end()            
-filetype plugin on    
+call vundle#end()
+filetype plugin on
 
 " GENERAL CONFIG
 " ---------------------------------
@@ -29,23 +36,8 @@ filetype plugin on
 syntax on
 
 " colorscheme
-colorscheme hemisu
+colorscheme hemiblue
 set background=light
-
-" when using > or <, for indent / outdent, go this many spaces
-set shiftwidth=4
-
-" display line numbers
-set number
-
-" display column number
-set ruler
-
-" tab is never \t, but always tabstop number of spaces
-set expandtab
-
-" tab is 4 spaces
-set tabstop=4
 
 " allow me to change buffers without saving
 set hidden
@@ -56,31 +48,14 @@ set nobackup
 " do not create swap files
 set noswapfile
 
-" case insensitive matching
-set ignorecase
-
 " allow copy/pasting to system clipboard
 set clipboard=unnamed
 
-" turn on auto indenting
-set autoindent
+" exclude files/dirs we don't care about
+set wildignore+=*/tmp/*,dist,node_modules
 
 " flag if leader key is active
 set showcmd
-
-" open splits to right/bottom
-set splitbelow
-set splitright
-
-" Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
-
-" Always use vertical diffs
-set diffopt+=vertical
-
-" Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
 
 " Quicker window movement
 nnoremap <C-j> <C-w>j
@@ -88,6 +63,65 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+
+" DISPLAY CONFIG
+" ---------------------------------
+" display line numbers
+set number
+
+" display column number
+set ruler
+
+" open splits to right/bottom
+set splitbelow
+set splitright
+
+" always use vertical diffs
+set diffopt+=vertical
+
+" make it obvious where 80 characters is
+set textwidth=80
+set colorcolumn=+1
+
+" start scrolling three lines before the horizontal window border
+set scrolloff=3
+
+" show the filename in the window titlebar
+set title
+
+" INDENT CONFIG
+" ---------------------------------
+" when using > or <, for indent / outdent, go this many spaces
+set shiftwidth=4
+
+" tab is never \t, but always tabstop number of spaces
+set expandtab
+
+" tab is 4 spaces
+set tabstop=4
+
+" case insensitive matching
+set ignorecase
+
+" turn on auto indenting
+set autoindent
+filetype indent on
+
+" prevent auto wrapping
+set formatoptions=cq
+
+" treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
+
+
+" PLUGIN CONFIG
+" ---------------------------------
+" syntax highlighting for go methods
+let g:go_highlight_methods = 1
+
+
+" HELPERS
+" ---------------------------------
 " tab completion
 set wildmode=list:longest,list:full
 function! InsertTabWrapper()
@@ -100,3 +134,11 @@ function! InsertTabWrapper()
 endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
+
+" delete trailing whitespace
+func! DeleteTrailingWS()
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal mz"
+endfunc
+autocmd BufWrite * :call DeleteTrailingWS()
