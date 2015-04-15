@@ -5,15 +5,20 @@
 	aa = add -A
 	pso = push origin
 	amend = commit -v --amend
-    plog = log --oneline
+    olog = log --oneline
     s = status --short
     d = diff
+    lg = log \
+        --graph \
+        --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+        --abbrev-commit \
+        --date=relative
 [core]
 	editor = vim
 [color "sh"]
-	branch = black
-	workdir = cyan
-	upstream-state = cyan
+	branch = auto
+    diff = auto
+    status = auto
 [user]
 	name = Salar Khan
 	email = salar.k3@gmail.com

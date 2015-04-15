@@ -24,7 +24,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'fatih/vim-go'
 Plugin 'hdima/python-syntax'
-Plugin 'skammer/vim-css-color'
+Plugin 'kien/ctrlp.vim'
 
 " end vundle, required
 call vundle#end()
@@ -119,6 +119,11 @@ let g:html_indent_tags = 'li\|p'
 " syntax highlighting for go methods
 let g:go_highlight_methods = 1
 
+" tell ctrlp to ignore version control
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+" use ag in CtrlP for listing files -- respects .gitignore
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
 " HELPERS
 " ---------------------------------
