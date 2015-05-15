@@ -15,6 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " PLUGINS
 " ---------------------------------
+Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-ragtag'
@@ -53,6 +54,9 @@ set clipboard=unnamed
 
 " exclude files/dirs we don't care about
 set wildignore+=*/tmp/*,dist,node_modules
+
+" set leader key
+let mapleader="\\"
 
 " flag if leader key is active
 set showcmd
@@ -119,8 +123,9 @@ let g:html_indent_tags = 'li\|p'
 " syntax highlighting for go methods
 let g:go_highlight_methods = 1
 
-" tell ctrlp to ignore version control
+" tell ctrlp to ignore version control and node modules
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = 'node_modules\|git'
 
 " use ag in CtrlP for listing files -- respects .gitignore
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -147,3 +152,38 @@ func! DeleteTrailingWS()
     exe "normal mz"
 endfunc
 autocmd BufWrite * :call DeleteTrailingWS()
+
+" SYNTASTIC
+" ---------------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_javascript_checkers = ['jscs']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+
+" \t to toggle syntastic
+noremap <leader>t :SyntasticToggleMode<CR>
+
+" JSCS
+" ---------------------------------
+function! JscsFix()
+    "Save current cursor position"
+    let l:winview = winsaveview()
+    "Pipe the current buffer (%) through the jscs -x command"
+    % ! jscs -x
+    "Restore cursor position - this is needed as piping the file"
+    "through jscs jumps the cursor to the top"
+    call winrestview(l:winview)
+endfunction
+command JscsFix :call JscsFix()
+
+" \f to run JscsFix
+noremap <leader>f :JscsFix<CR>
+
+"Run the JscsFix command just before the buffer is written for *.js files"
+" autocmd BufWritePre *.js,*.jsx JscsFix
+
