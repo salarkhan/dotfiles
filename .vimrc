@@ -16,6 +16,7 @@ Plugin 'gmarik/Vundle.vim'
 " PLUGINS
 " ---------------------------------
 Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-ragtag'
@@ -92,6 +93,9 @@ set scrolloff=3
 
 " show the filename in the window titlebar
 set title
+
+" toggle NERDTree
+map <C-n> :NERDTreeToggle<CR>
 
 " INDENT CONFIG
 " ---------------------------------
@@ -186,4 +190,3 @@ noremap <leader>f :JscsFix<CR>
 
 "Run the JscsFix command just before the buffer is written for *.js files"
 " autocmd BufWritePre *.js,*.jsx JscsFix
-
