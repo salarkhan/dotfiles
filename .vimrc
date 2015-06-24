@@ -39,6 +39,9 @@ syntax on
 colorscheme hemiblue
 set background=light
 
+" colorize matched searches
+set hlsearch
+
 " allow me to change buffers without saving
 set hidden
 
@@ -79,8 +82,8 @@ set splitright
 " always use vertical diffs
 set diffopt+=vertical
 
-" make it obvious where 80 characters is
-set textwidth=80
+" make it obvious where 84 characters is
+set textwidth=84
 set colorcolumn=+1
 
 " start scrolling three lines before the horizontal window border
