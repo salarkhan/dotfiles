@@ -15,18 +15,15 @@ Plugin 'gmarik/Vundle.vim'
 
 " PLUGINS
 " ---------------------------------
-Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-ragtag'
 Plugin 'tpope/vim-repeat'
+
 Plugin 'lunaru/vim-less'
 Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
 Plugin 'fatih/vim-go'
 Plugin 'hdima/python-syntax'
-Plugin 'kien/ctrlp.vim'
 
 " end vundle, required
 call vundle#end()
@@ -38,7 +35,6 @@ filetype plugin on
 syntax on
 
 " colorscheme
-colorscheme hemiblue
 set background=light
 
 " colorize matched searches
@@ -96,9 +92,6 @@ set scrolloff=3
 
 " show the filename in the window titlebar
 set title
-
-" toggle NERDTree
-map <C-n> :NERDTreeToggle<CR>
 
 " INDENT CONFIG
 " ---------------------------------
@@ -159,37 +152,3 @@ func! DeleteTrailingWS()
     exe "normal mz"
 endfunc
 autocmd BufWrite * :call DeleteTrailingWS()
-
-" SYNTASTIC
-" ---------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_javascript_checkers = ['jscs']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-
-" \t to toggle syntastic
-noremap <leader>t :SyntasticToggleMode<CR>
-
-" JSCS
-" ---------------------------------
-function! JscsFix()
-    "Save current cursor position"
-    let l:winview = winsaveview()
-    "Pipe the current buffer (%) through the jscs -x command"
-    % ! jscs -x
-    "Restore cursor position - this is needed as piping the file"
-    "through jscs jumps the cursor to the top"
-    call winrestview(l:winview)
-endfunction
-command JscsFix :call JscsFix()
-
-" \f to run JscsFix
-noremap <leader>f :JscsFix<CR>
-
-"Run the JscsFix command just before the buffer is written for *.js files"
-" autocmd BufWritePre *.js,*.jsx JscsFix

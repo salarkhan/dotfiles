@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+function menu () {
+    echo "setup: to ease the pain of new machines"
+    echo ""
+    echo "  ./setup ubuntu   -installs ubuntu configs"
+    echo "  ./setup osx      -installs osx configs"
+}
+
+function osx () {
+  ./osx/keyboard-repeat
+  ./osx/caps-to-ctrl
+  echo "complete. some changes require logout to take place"
+  exit 0
+}
+
+function ubuntu () {
+  echo "IN PROGRES"
+  exit 0
+}
+
+
+[[ $1 = "osx" ]] && osx
+[[ $1 = "ubuntu" ]] && ubuntu
+menu
