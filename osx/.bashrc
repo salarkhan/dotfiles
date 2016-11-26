@@ -21,7 +21,7 @@ c_reset='\[\e[0m\]'
 c_path='\[\e[0;36m\]'
 c_git_clean='\[\e[0;32m\]'
 c_git_dirty='\[\e[0;31m\]'
-PROMPT_COMMAND='PS1="${c_path}\W${c_reset}$(git_prompt) :> "'
+PROMPT_COMMAND='PS1="${c_path}\W${c_reset}$(git_prompt) : "'
 export PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(git_prompt)\[\033[0m\]:> '
 
 #ALIASES
