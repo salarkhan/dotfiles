@@ -1,0 +1,7 @@
+# exit if config file exists
+test -e /etc/X11/xorg.conf && {
+  echo "/etc/X11/xorg.conf already exists. you're on your own, bub"
+  exit 1
+}
+
+cp xorg.conf $HOME/etc/X11/xorg.conf
