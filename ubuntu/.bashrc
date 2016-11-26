@@ -1,6 +1,7 @@
 # GENERAL CONFIG
 #=================
 # if not running interactively, don't do anything
+# http://unix.stackexchange.com/questions/257571/why-does-bashrc-check-whether-the-current-shell-is-interactive
 case $- in
     *i*) ;;
       *) return;;
