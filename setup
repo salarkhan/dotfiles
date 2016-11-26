@@ -15,7 +15,10 @@ function osx () {
 }
 
 function ubuntu () {
-  echo "IN PROGRES"
+  ./ubuntu/caps-to-ctrl
+  ./ubuntu/inconsolata
+  echo "inconsolata installed. please update terminal profile"
+  echo "complete. some changes require logout to take place"
   exit 0
 }
 
