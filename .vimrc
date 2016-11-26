@@ -1,7 +1,7 @@
 " use vim settings over vi
 set nocompatible
 
-" VUNDLE CONFIG
+" PLUGIN CONFIG
 " ---------------------------------
 " vundle, required
 filetype off
@@ -10,28 +10,23 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" let vundle manage vundle, required
-Plugin 'gmarik/Vundle.vim'
+" let vundle manage itself, required
+Plugin 'VundleVim/Vundle.vim'
 
-" PLUGINS
-" ---------------------------------
+" plugins
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-ragtag'
 Plugin 'tpope/vim-repeat'
 
-Plugin 'lunaru/vim-less'
-Plugin 'pangloss/vim-javascript'
-Plugin 'fatih/vim-go'
-Plugin 'hdima/python-syntax'
-
 " end vundle, required
 call vundle#end()
 filetype plugin on
 
+
 " GENERAL CONFIG
 " ---------------------------------
-" synax highlighting
+" syntax highlighting
 syntax on
 
 " colorscheme
@@ -53,13 +48,13 @@ set noswapfile
 set clipboard=unnamed
 
 " exclude files/dirs we don't care about
-set wildignore+=*/tmp/*,dist,node_modules
+set wildignore+=*/tmp/*,dist,node_modules,*.pyc
 
-" set leader key
-let mapleader="\\"
+" workaround to ensure :E maps to Explore
+let g:loaded_logipat = 1
 
-" flag if leader key is active
-set showcmd
+" case insensitive matching
+set ignorecase
 
 " Quicker window movement
 nnoremap <C-j> <C-w>j
@@ -70,6 +65,9 @@ nnoremap <C-l> <C-w>l
 
 " DISPLAY CONFIG
 " ---------------------------------
+" show the filename in the window titlebar
+set title
+
 " display line numbers
 set number
 
@@ -83,29 +81,24 @@ set splitright
 " always use vertical diffs
 set diffopt+=vertical
 
-" make it obvious where 84 characters is
-set textwidth=84
+" make it obvious where 80 characters is
+set textwidth=80
 set colorcolumn=+1
 
-" start scrolling three lines before the horizontal window border
+" start scrolling this many lines before the horizontal window border
 set scrolloff=3
 
-" show the filename in the window titlebar
-set title
 
 " INDENT CONFIG
 " ---------------------------------
 " when using > or <, for indent / outdent, go this many spaces
-set shiftwidth=4
+set shiftwidth=2
 
 " tab is never \t, but always tabstop number of spaces
 set expandtab
 
-" tab is 4 spaces
-set tabstop=4
-
-" case insensitive matching
-set ignorecase
+" tab is this many spaces
+set tabstop=2
 
 " turn on auto indenting
 set autoindent
@@ -117,18 +110,6 @@ set formatoptions=cq
 " treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
-
-" PLUGIN CONFIG
-" ---------------------------------
-" syntax highlighting for go methods
-let g:go_highlight_methods = 1
-
-" tell ctrlp to ignore version control and node modules
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = 'node_modules\|git'
-
-" use ag in CtrlP for listing files -- respects .gitignore
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
 " HELPERS
 " ---------------------------------
