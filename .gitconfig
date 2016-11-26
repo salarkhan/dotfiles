@@ -1,22 +1,22 @@
 [alias]
-	co = checkout
-	ci = commit -v
-	ap = add -p
-	aa = add -A
-	pso = push origin
-	amend = commit -v --amend
+  co = checkout
+  ci = commit -v
+  ap = add -p
+  aa = add -A
+  pso = push origin
+  amend = commit -v --amend
   s = status --short
   d = diff
   br = branch
 [core]
-	editor = vim
+  editor = vim
 [color]
-    diff = auto
-    status = auto
-    branch = auto
-    interactive = auto
-    ui = true
-    pager = true
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = true
+  pager = true
 [user]
-    name = salar
-    email = salar.k3@gmail.com
+  name = salar
+  email = salar.k3@gmail.com
