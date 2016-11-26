@@ -5,11 +5,9 @@
 	aa = add -A
 	pso = push origin
 	amend = commit -v --amend
-    olog = log --oneline
-    s = status --short
-    d = diff
-    br = branch
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  s = status --short
+  d = diff
+  br = branch
 [core]
 	editor = vim
 [color]
@@ -20,5 +18,5 @@
     ui = true
     pager = true
 [user]
-    name = Salar Khan
+    name = salar
     email = salar.k3@gmail.com
