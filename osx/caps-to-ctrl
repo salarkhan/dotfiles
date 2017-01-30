@@ -3,7 +3,7 @@ function map_keys {
     defaults -currentHost write -g com.apple.keyboard.modifiermapping.$1-0 -array-add '<dict><key>HIDKeyboardModifierMappingDst</key><integer>2</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'
 }
 
-./hardware/keyboard-ids | while read vendor_id product_id
+./osx/keyboard-ids | while read vendor_id product_id
 do
     map_keys $vendor_id-$product_id
 done
