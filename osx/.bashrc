@@ -29,26 +29,5 @@ export PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(git_prompt)\[\033[0m\]:> '
 alias ls="ls -Gh"
 alias ll="ls -lv"
 alias la="ll -A"
-alias cdgo='cd code/gocode/src'
 alias rebash='source ~/.profile'
 
-#LANGUAGE CONFIG (uncomment as necessary)
-#===============
-# #python
-# export PYTHONPATH=$PYTHONPATH:/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PROJECT_HOME=$HOME/Devel
-# source /usr/local/bin/virtualenvwrapper.sh
-
-# #ruby
-# eval "$(rbenv init -)"
-
-# #node
-# export NVM_DIR="/Users/salarkhan/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-# nvm use stable
-
-# #go
-# export GOROOT=`go env GOROOT`
-# export GOPATH=$HOME/code/gocode
-# export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
