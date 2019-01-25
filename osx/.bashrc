@@ -31,3 +31,6 @@ alias ll="ls -lv"
 alias la="ll -A"
 alias rebash='source ~/.profile'
 
+# MISC CONFIG
+#===============
+test -f ~/.git-completion.bash && . $_

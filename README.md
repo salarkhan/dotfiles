@@ -6,3 +6,4 @@ _and other helpful things_
 * install inconsolata
 * set keypress repeat speed to max
 * adjust trackpad scrolling speed
+* add git autocomplete
