@@ -3,26 +3,48 @@ set nocompatible
 
 " PLUGIN CONFIG
 " ---------------------------------
-" vundle, required
-filetype off
-
-" set the runtime path to include vundle and initialize, required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let vundle manage itself, required
-Plugin 'VundleVim/Vundle.vim'
+" set dir for plugins
+call plug#begin('~/.vim/plugged')
 
 " plugins
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-ragtag'
-Plugin 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'zhimsel/vim-stay'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
-" end vundle, required
-call vundle#end()
-filetype plugin on
+" colorschemes
+Plug 'NLKNguyen/papercolor-theme'
 
+" initialize plugin system
+call plug#end()
+
+" RIPGREP/FZF CONFIG
+" ---------------------------------
+" set fzf
+set rtp+=/usr/local/opt/fzf
+
+" ? to preview search result
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" preview for :Files command
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" LANGUAGE CONFIG
+" ---------------------------------
+let g:go_fmt_command = "goimports"
+let g:go_fmt_experimental = 1
 
 " GENERAL CONFIG
 " ---------------------------------
@@ -30,7 +52,9 @@ filetype plugin on
 syntax on
 
 " colorscheme
+set t_Co=256
 set background=light
+colorscheme PaperColor
 
 " colorize matched searches
 set hlsearch
@@ -56,12 +80,19 @@ let g:loaded_logipat = 1
 " case insensitive matching
 set ignorecase
 
-" Quicker window movement
+" quicker window movement
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" let me use a mouse if i want to
+if has('mouse')
+  set mouse=a
+endif
+
+" keep 200 lines of cmd history
+set history=1000	
 
 " DISPLAY CONFIG
 " ---------------------------------
@@ -70,9 +101,6 @@ set title
 
 " display line numbers
 set number
-
-" display column number
-set ruler
 
 " open splits to right/bottom
 set splitbelow
@@ -86,8 +114,14 @@ set textwidth=80
 set colorcolumn=+1
 
 " start scrolling this many lines before the horizontal window border
-set scrolloff=3
+set scrolloff=5
 
+" show @@@ in the last line if it is truncated
+set display=truncate
+
+" remember my folds pls
+set foldmethod=syntax
+set viewoptions=cursor,folds,slash,unix
 
 " INDENT CONFIG
 " ---------------------------------
@@ -100,20 +134,12 @@ set expandtab
 " tab is this many spaces
 set tabstop=2
 
-" turn on auto indenting
-set autoindent
-filetype indent on
-
-" prevent auto wrapping
-set formatoptions=cq
-
-" treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
-
+" use shiftwidth instead of tabstop 
+set smarttab
 
 " HELPERS
 " ---------------------------------
-" tab completion
+" super simple tab completion
 set wildmode=list:longest,list:full
 function! InsertTabWrapper()
     let col = col('.') - 1
@@ -125,11 +151,3 @@ function! InsertTabWrapper()
 endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
-
-" delete trailing whitespace
-func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal mz"
-endfunc
-autocmd BufWrite * :call DeleteTrailingWS()
