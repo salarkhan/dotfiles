@@ -1,22 +1,14 @@
-[alias]
-  co = checkout
-  ci = commit -v
-  ap = add -p
-  aa = add -A
-  pso = push origin
-  amend = commit -v --amend
-  s = status --short
-  d = diff
-  br = branch
+[user]
+	email = salar.k3@gmail.com
+	name = salarkhan
+[credential]
+	helper = osxkeychain
+[web]
+	browser = open
+[color]
+	ui = auto
 [core]
   editor = vim
-[color]
-  diff = auto
-  status = auto
-  branch = auto
-  interactive = auto
-  ui = true
-  pager = true
-[user]
-  name = salar
-  email = salar.k3@gmail.com
+[alias]
+  olog = log --oneline
+  s = status --short
