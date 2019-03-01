@@ -1,12 +1,12 @@
 [user]
-	email = salar.k3@gmail.com
-	name = salarkhan
+  email = salar.k3@gmail.com
+  name = salarkhan
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 [web]
-	browser = open
+  browser = open
 [color]
-	ui = auto
+  ui = auto
 [core]
   editor = vim
 [alias]
