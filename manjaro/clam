@@ -1,0 +1,2 @@
+pamac install clamav # virus scanner cli
+# https://www.clamav.net/documents/installing-clamav-on-unix-linux-macos-from-source

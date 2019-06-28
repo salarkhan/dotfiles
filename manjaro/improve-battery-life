@@ -1,0 +1,15 @@
+https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
+
+# tlp-rdw: radio device wizard to enable/disable power saving (wifi/bt)
+pamac install tlp tlp-rdw
+
+# thinkpad-specific settings (must disable secure boot to use these)
+# tp-smapi-dkms: battery charge thresholds and thinkpad-specific output
+# of tlp-stat
+pamac install acpi_call-dkms
+
+# to disable secureboot
+http://www.rodsbooks.com/efi-bootloaders/secureboot.html#lenovo_u530
+
+# setting sane battery thresholds
+https://linrunner.de/en/tlp/docs/tlp-faq.html#kernmod
