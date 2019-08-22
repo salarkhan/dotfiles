@@ -1,0 +1,4 @@
+pamac install xorg-xbacklight
+
+# xbacklight -dec / -inc 5
+# if you go in increments of 10, thinkpad will snap to +/- 85 
