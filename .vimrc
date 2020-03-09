@@ -13,17 +13,18 @@ Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'zhimsel/vim-stay'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'jesseleite/vim-agriculture'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
-
 
 " initialize plugin system
 call plug#end()
@@ -36,12 +37,12 @@ syntax on
 " give me accurate colors, thanks neovim
 set termguicolors
 "
-" colorscheme
-" set background=light
-" colorscheme PaperColor
-set background=dark
-let g:gruvbox_contrast_dark='hard'
-colorscheme gruvbox
+colorscheme
+set background=light
+colorscheme PaperColor
+" set background=dark
+" let g:gruvbox_contrast_dark='hard'
+" colorscheme gruvbox
 
 " colorize matched searches
 set hlsearch
@@ -51,6 +52,10 @@ set hidden
 
 " do not create backup files
 set nobackup
+set nowritebackup
+
+" better display for messages
+set cmdheight=1
 
 " do not create swap files
 set noswapfile
@@ -72,7 +77,7 @@ if has('mouse')
   set mouse=a
 endif
 
-" keep 200 lines of cmd history
+" keep 1000 lines of cmd history
 set history=1000
 
 " when using > or <, for indent / outdent, go this many spaces
@@ -86,6 +91,9 @@ set tabstop=2
 
 " use shiftwidth instead of tabstop
 set smarttab
+
+" always show signcolumns
+set signcolumn=yes
 
 " DISPLAY CONFIG
 " ---------------------------------
@@ -128,16 +136,7 @@ nnoremap <C-l> <C-w>l
 command! W w
 
 " delete buffer but preserve the split
-nmap ,d :b#<bar>bd#<CR>
-
-" fzf - files
-nnoremap <C-p> :Files<CR>
-
-" fzf - buffers
-nmap <leader>b :Buffers<CR>
-
-" raw ripgrep cmd you can pass arguments to
-nmap <leader>r <Plug>RgRawSearch
+nmap ,d :bd<bar>bp<CR>
 
 " delete without yanking
 nnoremap <leader>d "_d
@@ -149,15 +148,70 @@ vnoremap <leader>p "_dP
 " remove highlights
 nmap <leader>h :nohl<CR>
 
-" LANGUAGE CONFIG
-" ---------------------------------
-" let g:go_fmt_command = "goimports"
-let g:go_fmt_experimental = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_parameters= 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_function_calls = 1
+" (fzf) - files
+nnoremap <C-t> :Files<CR>
 
+" (fzf) - buffers
+nmap <leader>b :Buffers<CR>
+
+" (vim-agriculture) raw ripgrep cmd you can pass arguments to
+nmap <leader>r <Plug>RgRawSearch
+
+" (vim-go) run a specific test
+autocmd FileType go nmap <leader>gt  <Plug>(go-test-func)
+
+" (vim-go) toggle test coverage
+autocmd FileType go nmap <Leader>gc <Plug>(go-coverage-toggle)
+
+" (vim-go) see identifier info
+autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+
+" (vim-go) show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+
+" (coc) remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" (coc) use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" (coc) use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" (coc) show diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+
+" (coc) use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" (coc) get func signatures
+augroup mygroup
+  autocmd!
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" VIM-GO CONFIG
+" ---------------------------------
+" highlight things
+let g:go_fmt_command = "goimports"
+let g:go_fmt_experimental = 1
+let g:go_highlight_extra_types = 1
+
+" disable vim-go :godef short cut use LSP
+let g:go_def_mapping_enabled = 0
 
 " RIPGREP/FZF CONFIG
 " ---------------------------------
@@ -169,21 +223,16 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+" COC CONFIG
+" ---------------------------------
+" you will have a bad time for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
 " HELPERS
 " ---------------------------------
-" super simple tab completion
-set wildmode=list:longest,list:full
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
-
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
     normal mz
@@ -193,4 +242,4 @@ function! StripTrailingWhitespace()
     normal `z
   endif
 endfunction
-nnoremap <leader>sw :call StripTrailingWhitespace()<CR>
+nnoremap <leader>ws :call StripTrailingWhitespace()<CR>
