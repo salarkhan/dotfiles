@@ -4,7 +4,7 @@ set nocompatible
 " PLUGIN CONFIG
 " ---------------------------------
 " set dir for plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin(stdpath('config') . '/plugged')
 
 " plugins
 Plug 'tpope/vim-commentary'
@@ -14,7 +14,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'jesseleite/vim-agriculture'
@@ -61,7 +61,7 @@ set cmdheight=1
 set noswapfile
 
 " allow copy/pasting to system clipboard
-set clipboard=unnamed
+set clipboard+=unnamedplus
 
 " exclude files/dirs we don't care about
 set wildignore+=*/tmp/*,dist,node_modules,*.pyc
@@ -135,6 +135,9 @@ nnoremap <C-l> <C-w>l
 " i hold shift too long sometimes
 command! W w
 
+" " ; as :
+nnoremap ; :
+
 " delete buffer but preserve the split
 nmap ,d :bd<bar>bp<CR>
 
@@ -164,7 +167,10 @@ autocmd FileType go nmap <leader>gt  <Plug>(go-test-func)
 autocmd FileType go nmap <Leader>gc <Plug>(go-coverage-toggle)
 
 " (vim-go) see identifier info
-autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+autocmd FileType go nmap <Leader>gn <Plug>(go-info)
+
+" (vim-go) - imports
+nmap <leader>i :GoImports<CR>
 
 " (vim-go) show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
@@ -206,12 +212,14 @@ augroup end
 " VIM-GO CONFIG
 " ---------------------------------
 " highlight things
-let g:go_fmt_command = "goimports"
-let g:go_fmt_experimental = 1
+" let g:go_fmt_experimental = 1
 let g:go_highlight_extra_types = 1
 
 " disable vim-go :godef short cut use LSP
 let g:go_def_mapping_enabled = 0
+
+" let gopls handle formatting & folds (or not...)
+let g:go_fmt_command = "gopls"
 
 " RIPGREP/FZF CONFIG
 " ---------------------------------
@@ -242,4 +250,4 @@ function! StripTrailingWhitespace()
     normal `z
   endif
 endfunction
-nnoremap <leader>ws :call StripTrailingWhitespace()<CR>
+nnoremap <leader>ws :call StripTrailingWhitespace()
