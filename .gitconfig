@@ -2,7 +2,7 @@
   email = salar.k3@gmail.com
   name = salarkhan
 [credential]
-  helper = osxkeychain
+  ; helper = osxkeychain
 [web]
   browser = open
 [color]

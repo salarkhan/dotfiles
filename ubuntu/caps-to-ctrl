@@ -1,3 +1,0 @@
-sudo sed -i 's/XKBOPTIONS=""/XKBOPTIONS="ctrl:nocaps"/g' /etc/default/keyboard
-
-sudo dpkg-reconfigure keyboard-configuration

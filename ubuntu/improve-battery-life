@@ -1,9 +1,7 @@
 # http://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
-
-# tlp-rdw: radio device wizard to enable/disable power saving (wifi/bt)
-sudo apt-get install tlp tlp-rdw
+sudo add-apt-repository ppa:linrunner/tlp
+sudo apt update
+sudo apt-get install tlp
 
 # thinkpad-specific settings (must disable secure boot to use these)
-# tp-smapi-dkms: battery charge thresholds and thinkpad-specific output
-# of tlp-stat
-sudo apt-get install tp-smapi-dkms acpi-call-dkms
+sudo apt-get install acpi-call-dkms

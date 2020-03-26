@@ -1,0 +1,24 @@
+# MISC CONFIG
+#-------------------
+export PROMPT_COMMAND="history -a; history -n"
+
+# PROMPT CONFIG
+#-------------------
+export PS1='\[\033[0;31m\]\u@\H:\[\033[0m\]\w: '
+
+# ENV CONFIG
+#-------------------
+export TERM=xterm-256color
+export EDITOR=vim
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+# ALIAS CONFIG
+#-------------------
+alias vi="nvim"
+alias vim="nvim"
+alias eb="nvim ~/.saladrc"
+alias ev="nvim ~/.vimrc"
+alias et="nvim ~/.tmux.conf"
+alias rb="source ~/.profile"
+
