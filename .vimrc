@@ -1,4 +1,3 @@
-" use vim settings over vi
 set nocompatible
 
 " PLUGIN CONFIG
@@ -13,14 +12,13 @@ Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'tpope/vim-obsession'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'jesseleite/vim-agriculture'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -38,11 +36,11 @@ syntax on
 set termguicolors
 "
 colorscheme
-set background=light
-colorscheme PaperColor
-" set background=dark
-" let g:gruvbox_contrast_dark='hard'
-" colorscheme gruvbox
+" set background=light
+" colorscheme PaperColor
+set background=dark
+let g:gruvbox_contrast_dark='medium'
+colorscheme gruvbox
 
 " colorize matched searches
 set hlsearch
@@ -121,8 +119,8 @@ set scrolloff=5
 set display=truncate
 
 " remember my folds pls
-set foldmethod=syntax
-set viewoptions=cursor,folds,slash,unix
+" set foldmethod=syntax
+" set viewoptions=cursor,folds,slash,unix
 
 " REMAP CONFIG
 " ---------------------------------
@@ -152,7 +150,7 @@ vnoremap <leader>p "_dP
 nmap <leader>h :nohl<CR>
 
 " (fzf) - files
-nnoremap <C-t> :Files<CR>
+nnoremap <C-p> :Files<CR>
 
 " (fzf) - buffers
 nmap <leader>b :Buffers<CR>
@@ -163,63 +161,20 @@ nmap <leader>r <Plug>RgRawSearch
 " (vim-go) run a specific test
 autocmd FileType go nmap <leader>gt  <Plug>(go-test-func)
 
-" (vim-go) toggle test coverage
-autocmd FileType go nmap <Leader>gc <Plug>(go-coverage-toggle)
-
 " (vim-go) see identifier info
 autocmd FileType go nmap <Leader>gn <Plug>(go-info)
 
 " (vim-go) - imports
 nmap <leader>i :GoImports<CR>
 
-" (vim-go) show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-
-" (coc) remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" (coc) use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" (coc) use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" (coc) show diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-
-" (coc) use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" (coc) get func signatures
-augroup mygroup
-  autocmd!
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
 " VIM-GO CONFIG
 " ---------------------------------
 " highlight things
-" let g:go_fmt_experimental = 1
 let g:go_highlight_extra_types = 1
 
-" disable vim-go :godef short cut use LSP
-let g:go_def_mapping_enabled = 0
+" let gopls handle formatting, imports, etc
+let g:go_fmt_command = "goimports"
 
-" let gopls handle formatting & folds (or not...)
-let g:go_fmt_command = "gopls"
 
 " RIPGREP/FZF CONFIG
 " ---------------------------------
@@ -233,11 +188,29 @@ command! -bang -nargs=* Rg
 
 " COC CONFIG
 " ---------------------------------
-" you will have a bad time for diagnostic messages when it's default 4000.
-set updatetime=300
+" use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" get func signatures
+augroup mygroup
+  autocmd!
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" use <cr> to confirm completion, `<c-g>u` means break undo chain at current position
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" show diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 
 " HELPERS
 " ---------------------------------
