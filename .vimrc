@@ -206,23 +206,21 @@ nnoremap <silent> <space>a :<C-u>CocList diagnostics<cr>
 
 " HELPERS
 " ---------------------------------
-" copy to attached terminal using the yank(1) script:
+" copy from ssh'd terminal to local clipboard via:
 " https://github.com/sunaku/home/blob/master/bin/yank
-function! Osc52Yank(text) abort
-  let escape = system('yank', a:text)
-  if v:shell_error
-    echoerr escape
-  else
-    call writefile([escape], '/dev/tty', 'b')
-  endif
-endfunction
-" leader y to yank to system clipboard
-" noremap <silent> <Leader>y y:<C-U>call Osc52Yank(@0)<CR>
-" all yanks go to system clipboard
-augroup AutoYank
-  autocmd!
-  autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank(@0) | endif
-augroup END
+" function! Osc52Yank(text) abort
+"   let escape = system('yank', a:text)
+"   if v:shell_error
+"     echoerr escape
+"   else
+"     call writefile([escape], '/dev/tty', 'b')
+"   endif
+" endfunction
+" " all yanks go to system clipboard
+" augroup AutoYank
+"   autocmd!
+"   autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank(@0) | endif
+" augroup END
 
 " clean up after yourself
 function! StripTrailingWhitespace()
