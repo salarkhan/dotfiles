@@ -3,16 +3,15 @@ set nocompatible
 " PLUGIN CONFIG
 " ---------------------------------
 " set dir for plugins
-call plug#begin(stdpath('config') . '/plugged')
+" call plug#begin(stdpath('config') . '/plugged')
+call plug#begin('~/.vim/plugged')
 
 " plugins
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-obsession'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
@@ -22,28 +21,26 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'NLKNguyen/papercolor-theme'
 
 " initialize plugin system
 call plug#end()
 
 " GENERAL CONFIG
 " ---------------------------------
+" colorscheme 
+set background=dark
+let g:gruvbox_contrast_dark='medium'
+let g:gruvbox_bold=0
+colorscheme gruvbox
+
 " syntax highlighting
 syntax on
 
-" give me accurate colors, thanks neovim
-set termguicolors
-"
-colorscheme
-" set background=light
-" colorscheme PaperColor
-set background=dark
-let g:gruvbox_contrast_dark='medium'
-colorscheme gruvbox
-
 " colorize matched searches
 set hlsearch
+
+" search incrementally
+set incsearch
 
 " allow me to change buffers without saving
 set hidden
@@ -58,7 +55,7 @@ set cmdheight=1
 " do not create swap files
 set noswapfile
 
-" allow copy/pasting to system clipboard
+" allow copy/pasting to system clipboard. doesn't work in cloudbox
 set clipboard+=unnamedplus
 
 " exclude files/dirs we don't care about
@@ -108,8 +105,8 @@ set splitright
 " always use vertical diffs
 set diffopt+=vertical
 
-" make it obvious where 80 characters is
-" set textwidth=80
+" make it obvious where 100 characters is
+" set textwidth=100
 " set colorcolumn=+1
 
 " start scrolling this many lines before the horizontal window border
@@ -130,14 +127,10 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" i hold shift too long sometimes
+" i hold shift too long/not long enough sometimes
 command! W w
-
-" " ; as :
+command! Wq wq
 nnoremap ; :
-
-" delete buffer but preserve the split
-nmap ,d :bd<bar>bp<CR>
 
 " delete without yanking
 nnoremap <leader>d "_d
@@ -175,16 +168,15 @@ let g:go_highlight_extra_types = 1
 " let gopls handle formatting, imports, etc
 let g:go_fmt_command = "goimports"
 
-
 " RIPGREP/FZF CONFIG
 " ---------------------------------
 " ? to preview search result
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+      \   <bang>0 ? fzf#vim#with_preview('up:60%')
+      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \   <bang>0)
 
 " COC CONFIG
 " ---------------------------------
@@ -207,13 +199,32 @@ augroup mygroup
 augroup end
 
 " use <cr> to confirm completion, `<c-g>u` means break undo chain at current position
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ?  "\<C-y>" : "\<C-g>u\<CR>"
 
 " show diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>a :<C-u>CocList diagnostics<cr>
 
 " HELPERS
 " ---------------------------------
+" copy to attached terminal using the yank(1) script:
+" https://github.com/sunaku/home/blob/master/bin/yank
+function! Osc52Yank(text) abort
+  let escape = system('yank', a:text)
+  if v:shell_error
+    echoerr escape
+  else
+    call writefile([escape], '/dev/tty', 'b')
+  endif
+endfunction
+" leader y to yank to system clipboard
+" noremap <silent> <Leader>y y:<C-U>call Osc52Yank(@0)<CR>
+" all yanks go to system clipboard
+augroup AutoYank
+  autocmd!
+  autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank(@0) | endif
+augroup END
+
+" clean up after yourself
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
     normal mz
