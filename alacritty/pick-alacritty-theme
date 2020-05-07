@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# location of alacritty.yml config file.
+CONF=$HOME/.alacritty.yml
+# line number where theme starts. theme must be last part of config file
+LINE_NUM=24
+# theme filepath
+THEME_FILE=$1
+
+if [[ -f $THEME_FILE ]]; then
+  if [[ uname -s == "Darwin" ]]; then
+    sed -i .bak $LINE_NUM,'$d' ~/.alacritty.yml
+  else
+    sed -i $LINE_NUM,'$d' ~/.alacritty.yml
+  fi
+  cat $THEME_FILE >> $CONF
+  echo "done. ${THEME_FILE} set."
+else
+  echo "file |${THEME_FILE}| cannot be found";
+fi
