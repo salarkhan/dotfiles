@@ -12,35 +12,41 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'jesseleite/vim-agriculture'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'jesseleite/vim-agriculture'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
 
 " colorschemes
 Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
 
 " initialize plugin system
 call plug#end()
 
 " GENERAL CONFIG
 " ---------------------------------
-" colorscheme 
-set background=dark
-let g:gruvbox_contrast_dark='medium'
-let g:gruvbox_bold=0
-colorscheme gruvbox
-
 " syntax highlighting
 syntax on
 
+" config based on filetype
+filetype plugin on
+
+" give me accurate colors (neovim/local)
+" set termguicolors
+
+colorscheme
+set background=light
+colorscheme PaperColor
+" set background=dark
+" let g:gruvbox_contrast_dark='medium'
+" colorscheme gruvbox
+
 " colorize matched searches
 set hlsearch
-
-" search incrementally
-set incsearch
 
 " allow me to change buffers without saving
 set hidden
@@ -55,7 +61,7 @@ set cmdheight=1
 " do not create swap files
 set noswapfile
 
-" allow copy/pasting to system clipboard. doesn't work in cloudbox
+" allow copy/pasting to system clipboard
 set clipboard+=unnamedplus
 
 " exclude files/dirs we don't care about
@@ -105,8 +111,8 @@ set splitright
 " always use vertical diffs
 set diffopt+=vertical
 
-" make it obvious where 100 characters is
-" set textwidth=100
+" make it obvious where 80 characters is
+" set textwidth=80
 " set colorcolumn=+1
 
 " start scrolling this many lines before the horizontal window border
@@ -114,10 +120,6 @@ set scrolloff=5
 
 " show @@@ in the last line if it is truncated
 set display=truncate
-
-" remember my folds pls
-" set foldmethod=syntax
-" set viewoptions=cursor,folds,slash,unix
 
 " REMAP CONFIG
 " ---------------------------------
@@ -127,10 +129,14 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" i hold shift too long/not long enough sometimes
+" i hold shift too long sometimes
 command! W w
-command! Wq wq
+
+" " ; as :
 nnoremap ; :
+
+" delete buffer but preserve the split
+nmap ,d :bd<bar>bp<CR>
 
 " delete without yanking
 nnoremap <leader>d "_d
@@ -141,6 +147,10 @@ vnoremap <leader>p "_dP
 
 " remove highlights
 nmap <leader>h :nohl<CR>
+
+" swap fold modes
+nmap ,f :set foldmethod=syntax<CR>
+nmap ,m :set foldmethod=manual<CR>
 
 " (fzf) - files
 nnoremap <C-p> :Files<CR>
@@ -165,64 +175,23 @@ nmap <leader>i :GoImports<CR>
 " highlight things
 let g:go_highlight_extra_types = 1
 
-" let gopls handle formatting, imports, etc
-let g:go_fmt_command = "goimports"
+" god please i just want folding to work
+let g:go_fmt_command = "gopls"
+let g:go_imports_mode = "gopls"
+let g:go_imports_autosave=1
 
 " RIPGREP/FZF CONFIG
 " ---------------------------------
 " ? to preview search result
 command! -bang -nargs=* Rg
-      \ call fzf#vim#grep(
-      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-      \   <bang>0 ? fzf#vim#with_preview('up:60%')
-      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-      \   <bang>0)
-
-" COC CONFIG
-" ---------------------------------
-" use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" get func signatures
-augroup mygroup
-  autocmd!
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" use <cr> to confirm completion, `<c-g>u` means break undo chain at current position
-inoremap <expr> <cr> pumvisible() ?  "\<C-y>" : "\<C-g>u\<CR>"
-
-" show diagnostics
-nnoremap <silent> <space>a :<C-u>CocList diagnostics<cr>
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 " HELPERS
 " ---------------------------------
-" copy from ssh'd terminal to local clipboard via:
-" https://github.com/sunaku/home/blob/master/bin/yank
-" function! Osc52Yank(text) abort
-"   let escape = system('yank', a:text)
-"   if v:shell_error
-"     echoerr escape
-"   else
-"     call writefile([escape], '/dev/tty', 'b')
-"   endif
-" endfunction
-" " all yanks go to system clipboard
-" augroup AutoYank
-"   autocmd!
-"   autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank(@0) | endif
-" augroup END
-
-" clean up after yourself
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
     normal mz
@@ -233,3 +202,20 @@ function! StripTrailingWhitespace()
   endif
 endfunction
 nnoremap <leader>ws :call StripTrailingWhitespace()
+
+" copy from ssh'd terminal to local clipboard via:
+" https://github.com/sunaku/home/blob/master/bin/yank
+function! Osc52Yank(text) abort
+  let escape = system('yank', a:text)
+  if v:shell_error
+    echoerr escape
+  else
+    call writefile([escape], '/dev/tty', 'b')
+  endif
+endfunction
+
+" all yanks go to system clipboard
+augroup AutoYank
+  autocmd!
+  autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank(@0)
+augroup END

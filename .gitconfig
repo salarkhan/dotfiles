@@ -1,8 +1,6 @@
 [user]
   email = salar.k3@gmail.com
   name = salarkhan
-[credential]
-  ; helper = osxkeychain
 [web]
   browser = open
 [color]
@@ -12,3 +10,9 @@
 [alias]
   olog = log --oneline
   s = status --short
+  br = branch
+  co = checkout
+[difftool]
+  prompt = false
+[diff]
+  tool = vimdiff

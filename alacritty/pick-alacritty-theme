@@ -5,14 +5,11 @@ CONF=$HOME/.alacritty.yml
 # line number where theme starts. theme must be last part of config file
 LINE_NUM=24
 # theme filepath
-THEME_FILE=$1
+THEME_FILE=~/.config/alacritty/$1
 
+# sed on osx plays a bit differently
 if [[ -f $THEME_FILE ]]; then
-  if [[ uname -s == "Darwin" ]]; then
-    sed -i .bak $LINE_NUM,'$d' ~/.alacritty.yml
-  else
-    sed -i $LINE_NUM,'$d' ~/.alacritty.yml
-  fi
+  sed -i .bak $LINE_NUM,'$d' ~/.alacritty.yml
   cat $THEME_FILE >> $CONF
   echo "done. ${THEME_FILE} set."
 else
