@@ -3,7 +3,6 @@ set nocompatible
 " PLUGIN CONFIG
 " ---------------------------------
 " set dir for plugins
-" call plug#begin(stdpath('config') . '/plugged')
 call plug#begin('~/.vim/plugged')
 
 " plugins
@@ -16,6 +15,7 @@ Plug 'jesseleite/vim-agriculture'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -30,14 +30,12 @@ call plug#end()
 " GENERAL CONFIG
 " ---------------------------------
 " syntax highlighting
-syntax on
+set syntax=on
 
-" config based on filetype
-filetype plugin on
-
-" give me accurate colors (neovim/local)
+" give me accurate colors, thanks neovim
 " set termguicolors
 
+" colors
 colorscheme
 set background=light
 colorscheme PaperColor
@@ -56,6 +54,7 @@ set nobackup
 set nowritebackup
 
 " better display for messages
+set shortmess=at
 set cmdheight=1
 
 " do not create swap files
@@ -107,13 +106,6 @@ set number
 " open splits to right/bottom
 set splitbelow
 set splitright
-
-" always use vertical diffs
-set diffopt+=vertical
-
-" make it obvious where 80 characters is
-" set textwidth=80
-" set colorcolumn=+1
 
 " start scrolling this many lines before the horizontal window border
 set scrolloff=5
