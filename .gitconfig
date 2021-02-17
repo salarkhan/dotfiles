@@ -6,7 +6,7 @@
 [color]
   ui = auto
 [core]
-  editor = vim
+  editor = nvim
 [alias]
   olog = log --oneline
   s = status --short
