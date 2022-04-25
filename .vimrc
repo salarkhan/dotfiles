@@ -15,8 +15,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jesseleite/vim-agriculture'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -31,15 +29,15 @@ call plug#end()
 set syntax=on
 
 " give me accurate colors, thanks neovim
-" set termguicolors
+set termguicolors
 
 " colors
-colorscheme
-set background=light
-colorscheme PaperColor
-" set background=dark
-" let g:gruvbox_contrast_dark='medium'
-" colorscheme gruvbox
+let g:gruvbox_contrast_dark='medium'
+
+let vim_color_path = expand('~/.config/nvim/color.vim')
+if filereadable(vim_color_path)
+  exec 'source' vim_color_path
+endif
 
 " colorize matched searches
 set hlsearch
@@ -142,6 +140,8 @@ nmap <leader>h :nohl<CR>
 nmap ,f :set foldmethod=syntax<CR>
 nmap ,m :set foldmethod=manual<CR>
 
+" PLUGIN CONFIG
+" ---------------------------------
 " (fzf) - files
 nnoremap <C-p> :Files<CR>
 
@@ -151,18 +151,7 @@ nmap <leader>b :Buffers<CR>
 " (vim-agriculture) raw ripgrep cmd you can pass arguments to
 nmap <leader>r <Plug>RgRawSearch
 
-" (vim-go) run a specific test
-autocmd FileType go nmap <leader>gt  <Plug>(go-test-func)
-
-" (vim-go) see identifier info
-autocmd FileType go nmap <Leader>gn <Plug>(go-info)
-
-" (vim-go) - imports
-nmap <leader>i :GoImports<CR>
-
-" PLUGIN CONFIG
-" ---------------------------------
-" ripgrep: ? to preview search result
+" (ripgrep) ? to preview search result
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
@@ -170,13 +159,36 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-" completion-nvim: auto run 
-autocmd BufEnter * lua require'completion'.on_attach()
-" completion-nvim: better completion experience
-set completeopt=menuone,noinsert,noselect
-" completion-nvim: navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" HELPERS
+" ---------------------------------
+function! StripTrailingWhitespace()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    %s/\s\+$//e
+    normal 'yz<CR>
+    normal `z
+  endif
+endfunction
+nnoremap <leader>ws :call StripTrailingWhitespace()
+
+" " copy from ssh'd terminal to local clipboard via:
+" " https://github.com/sunaku/home/blob/master/bin/yank
+" function! Osc52Yank(text) abort
+"   let escape = system('yank', a:text)
+"   if v:shell_error
+"     echoerr escape
+"   else
+"     call writefile([escape], '/dev/tty', 'b')
+"   endif
+" endfunction
+
+" " all yanks go to system clipboard
+" augroup AutoYank
+"   autocmd!
+"   autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank(@0)
+" augroup END
 
 " LSP CONFIG
 " ---------------------------------
@@ -245,32 +257,3 @@ for _, lsp in ipairs(servers) do
 end
 EOF
 
-" HELPERS
-" ---------------------------------
-function! StripTrailingWhitespace()
-  if !&binary && &filetype != 'diff'
-    normal mz
-    normal Hmy
-    %s/\s\+$//e
-    normal 'yz<CR>
-    normal `z
-  endif
-endfunction
-nnoremap <leader>ws :call StripTrailingWhitespace()
-
-" " copy from ssh'd terminal to local clipboard via:
-" " https://github.com/sunaku/home/blob/master/bin/yank
-" function! Osc52Yank(text) abort
-"   let escape = system('yank', a:text)
-"   if v:shell_error
-"     echoerr escape
-"   else
-"     call writefile([escape], '/dev/tty', 'b')
-"   endif
-" endfunction
-
-" " all yanks go to system clipboard
-" augroup AutoYank
-"   autocmd!
-"   autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank(@0)
-" augroup END
