@@ -12,8 +12,8 @@ zplug load
 
 # ENV
 #-------------------
-export LSCOLORS="exgxfxdacxDaDaxbadacex"
 export GOPATH=$HOME/go
+export REPO=$GOPATH/src/github.com/muxinc/mux
 
 # ALIASES
 #-------------------
@@ -55,5 +55,29 @@ colorscheme() {
   esac
 }
 
-# to customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# MUX ALIASES
+#-------------------
+alias gomux="cd ~/go/src/github.com/muxinc/mux"
+alias gocf="cd ~/go/src/github.com/muxinc/mux/ops/cloudflare"
+alias kaw2="kubectx aws-us-west-2-vos1-admin@aws-us-west-2-vos1"
+alias kpw1="kubectx gcp-us-west1-vos1-admin@gcp-us-west1-vos1"
+alias kgw1="kubectx us-west1.gce.k8s.mux.io"
+alias kge1="kubectx us-east1.gce.k8s.mux.io"
+alias kge4="kubectx us-east4.gce.k8s.mux.io"
+
+# MUX HELPERS
+#-------------------
+function link23 () {
+  ln -sf /usr/local/bin/kubectl1.23 /usr/local/bin/kubectl
+}
+
+function link13 () {
+  ln -sf /usr/local/bin/kubectl1.13 /usr/local/bin/kubectl
+}
+
+function link8 () {
+  ln -sf /usr/local/bin/kubectl1.8 /usr/local/bin/kubectl
+}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
