@@ -1,3 +1,6 @@
+# uncomment to debug speed issues
+# zmodload zsh/zprof
+
 # PLUGINS
 #-------------------
 export ZPLUG_HOME=/opt/homebrew/opt/zplug
@@ -10,10 +13,15 @@ fi
 
 zplug load
 
-# ENV
+# CONFIG
 #-------------------
 export GOPATH=$HOME/go
-export REPO=$GOPATH/src/github.com/muxinc/mux
+export GOBIN=$GOPATH/bin
+export NVM_DIR="$HOME/.nvm"
+export KUBECONFIG=$HOME/.kube/config
+
+# path config
+export PATH=$GOPATH/bin:$PATH
 
 # ALIASES
 #-------------------
@@ -26,11 +34,13 @@ alias eb="vi ~/.zshrc"
 alias ea="vi ~/.config/alacritty"
 alias et="vi ~/.config/tmux/tmux.conf"
 alias rb="exec zsh"
-alias json="python -mjson.tool"
 alias k="kubectl"
+alias json="python -mjson.tool"
+alias nvm-start=". $NVM_DIR/nvm.sh"
 
 # HELPERS
 #-------------------
+
 color-vim() {
   echo $1 > ~/.config/nvim/color.vim
 }
@@ -55,29 +65,33 @@ colorscheme() {
   esac
 }
 
+# MUX CONFIG
+#-------------------
+export REPO=$GOPATH/src/github.com/muxinc/mux
+# google cloud sdk PATH & completion
+if [ -f '/Users/skhan/lib/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/skhan/lib/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/skhan/lib/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/skhan/lib/google-cloud-sdk/completion.zsh.inc'; fi
+
 # MUX ALIASES
 #-------------------
 alias gomux="cd ~/go/src/github.com/muxinc/mux"
 alias gocf="cd ~/go/src/github.com/muxinc/mux/ops/cloudflare"
 alias kaw2="kubectx aws-us-west-2-vos1-admin@aws-us-west-2-vos1"
-alias kpw1="kubectx gcp-us-west1-vos1-admin@gcp-us-west1-vos1"
-alias kgw1="kubectx us-west1.gce.k8s.mux.io"
+alias kgcpw1="kubectx gcp-us-west1-vos1-admin@gcp-us-west1-vos1"
+alias kgcew1="kubectx us-west1.gce.k8s.mux.io"
 alias kge1="kubectx us-east1.gce.k8s.mux.io"
 alias kge4="kubectx us-east4.gce.k8s.mux.io"
+alias k8="/usr/local/bin/kubectl1.8"
+alias k23="/usr/local/bin/kubectl1.23"
 
 # MUX HELPERS
 #-------------------
-function link23 () {
-  ln -sf /usr/local/bin/kubectl1.23 /usr/local/bin/kubectl
-}
-
-function link13 () {
-  ln -sf /usr/local/bin/kubectl1.13 /usr/local/bin/kubectl
-}
-
-function link8 () {
-  ln -sf /usr/local/bin/kubectl1.8 /usr/local/bin/kubectl
+function thing () {
+  echo "hi"
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# uncomment to debug speed issues
+# zprof

@@ -3,9 +3,9 @@ set nocompatible
 " PLUGIN CONFIG
 " ---------------------------------
 " set dir for plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
-" plugins
+" general purpose
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -15,6 +15,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jesseleite/vim-agriculture'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" lsp etc
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -140,8 +144,24 @@ nmap <leader>h :nohl<CR>
 nmap ,f :set foldmethod=syntax<CR>
 nmap ,m :set foldmethod=manual<CR>
 
+" HELPERS
+" ---------------------------------
+function! StripTrailingWhitespace()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    %s/\s\+$//e
+    normal 'yz<CR>
+    normal `z
+  endif
+endfunction
+nnoremap <leader>ws :call StripTrailingWhitespace()
+
 " PLUGIN CONFIG
 " ---------------------------------
+" lsp config and others
+lua require('lsp')
+
 " (fzf) - files
 nnoremap <C-p> :Files<CR>
 
@@ -159,16 +179,3 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-
-" HELPERS
-" ---------------------------------
-function! StripTrailingWhitespace()
-  if !&binary && &filetype != 'diff'
-    normal mz
-    normal Hmy
-    %s/\s\+$//e
-    normal 'yz<CR>
-    normal `z
-  endif
-endfunction
-nnoremap <leader>ws :call StripTrailingWhitespace()
