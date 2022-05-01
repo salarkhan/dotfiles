@@ -19,6 +19,12 @@ Plug 'junegunn/fzf.vim'
 " lsp etc
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'L3MON4D3/LuaSnip'
+
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -27,13 +33,37 @@ Plug 'NLKNguyen/papercolor-theme'
 " initialize plugin system
 call plug#end()
 
+" PLUGIN CONFIG
+" ---------------------------------
+" lsp config and others
+lua require('user.lsp')
+lua require('user.cmp')
+
+" (fzf) - files
+nnoremap <C-p> :Files<CR>
+
+" (fzf) - buffers
+nmap <leader>b :Buffers<CR>
+
+" (vim-agriculture) raw ripgrep cmd you can pass arguments to
+nmap <leader>r <Plug>RgRawSearch
+
+" (ripgrep) ? to preview search result
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+
 " GENERAL CONFIG
 " ---------------------------------
 " syntax highlighting
 set syntax=on
 
 " give me accurate colors, thanks neovim
-set termguicolors
+" set termguicolors
 
 " colors
 let g:gruvbox_contrast_dark='medium'
@@ -42,6 +72,9 @@ let vim_color_path = expand('~/.config/nvim/color.vim')
 if filereadable(vim_color_path)
   exec 'source' vim_color_path
 endif
+
+" completion config
+set completeopt=menu,menuone,noselect
 
 " colorize matched searches
 set hlsearch
@@ -156,26 +189,4 @@ function! StripTrailingWhitespace()
   endif
 endfunction
 nnoremap <leader>ws :call StripTrailingWhitespace()
-
-" PLUGIN CONFIG
-" ---------------------------------
-" lsp config and others
-lua require('lsp')
-
-" (fzf) - files
-nnoremap <C-p> :Files<CR>
-
-" (fzf) - buffers
-nmap <leader>b :Buffers<CR>
-
-" (vim-agriculture) raw ripgrep cmd you can pass arguments to
-nmap <leader>r <Plug>RgRawSearch
-
-" (ripgrep) ? to preview search result
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 
