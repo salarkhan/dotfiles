@@ -1,4 +1,4 @@
-require "lsp.installer"
-require "lsp.settings-lua"
-require "lsp.settings-gopls"
-require "lsp.lsp"
+require "user.lsp.installer"
+require "user.lsp.lsp"
+require "user.lsp.settings-lua"
+require "user.lsp.settings-gopls"

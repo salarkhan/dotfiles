@@ -25,7 +25,6 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip'
 
-
 " colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
@@ -190,3 +189,6 @@ function! StripTrailingWhitespace()
 endfunction
 nnoremap <leader>ws :call StripTrailingWhitespace()
 
+" per-file formatting & syntax
+autocmd BufNewFile,BufRead *.tf,*.vcl set filetype=ruby
+" :!black %

@@ -1,2 +1,2 @@
-colorscheme papercolor
-set background=light
+colorscheme gruvbox
+set background=dark
