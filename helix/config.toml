@@ -1,0 +1,30 @@
+# visual
+theme = "autumn"
+# theme = "papercolor-light"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+# config
+[editor]
+auto-pairs = false 
+completion-trigger-len = 4
+bufferline = "always"
+text-width = 100
+
+[editor.lsp]
+auto-signature-help = false
+display-messages = true
+
+# remaps
+[keys.normal]
+C-c = ["keep_primary_selection", "collapse_selection"]
+g = { c = { c = "toggle_comments", s = "signature_help"}}
+
+[keys.select]
+C-c = "normal_mode" 
+
+[keys.insert]
+C-c = ["normal_mode", "keep_primary_selection", "collapse_selection"]

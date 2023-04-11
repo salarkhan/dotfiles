@@ -1,0 +1,12 @@
+[[language]]
+name = "vcl"
+scope = "source.vcl"
+injection-regex = "vcl"
+file-types = ["vcl"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+roots = []
+
+[[grammar]]
+name = "vcl"
+source = { git = "https://github.com/tree-sitter/tree-sitter-ruby", rev = "206c7077164372c596ffa8eaadb9435c28941364" }
