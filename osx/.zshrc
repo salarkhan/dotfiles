@@ -15,80 +15,47 @@ zplug load
 
 # CONFIG
 #-------------------
+# path config
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export NVM_DIR="$HOME/.nvm"
 export KUBECONFIG=$HOME/.kube/config
+export FZF_DEFAULT_COMMAND="rg --files --hidden"
+eval "$(rbenv init - zsh)"
 
-# path config
-export PATH=$GOPATH/bin:$PATH
+# shim me baby
+export PATH=$HOME/.emacs.d/bin:$PATH
+export PATH=/Applications/Racket\ v8.7/bin:$PATH
+export PATH=/opt/homebrew/:$PATH
+export PATH=/opt/local/bin/:$PATH
+export PATH=$GOPATH/bin:$HOME/bin:$PATH
 
 # ALIASES
 #-------------------
-alias ls="ls -Gh"
-alias ll="ls -lv"
+alias ls="ls -aGh"
+alias ll="ls -alv"
 alias la="ll -A"
 alias vi="nvim"
-alias ev="vi ~/.config/nvim/init.vim"
-alias eb="vi ~/.zshrc"
-alias ea="vi ~/.config/alacritty"
-alias et="vi ~/.config/tmux/tmux.conf"
+alias ev="hx ~/.config/nvim"
+alias eb="hx ~/.zshrc"
+alias ea="hx ~/.config/alacritty"
+alias et="hx ~/.config/tmux/tmux.conf"
+alias ek="hx ~/.config/kitty/kitty.conf"
+alias ex="hx ~/.config/helix/config.toml"
 alias rb="exec zsh"
-alias k="kubectl"
+alias k="/usr/local/bin/kubectl"
 alias json="python -mjson.tool"
 alias nvm-start=". $NVM_DIR/nvm.sh"
+alias vault-login="vault login -method=oidc role=oidc-dev-only"
+alias devbox-status="gcloud compute instances list | grep $USER"
+alias rg="rg --hidden"
 
 # HELPERS
 #-------------------
-
-color-vim() {
-  echo $1 > ~/.config/nvim/color.vim
+curl-resp-status() {
+  curl -s -o /dev/null -w "\n%{http_code}\n" $1
 }
 
-color-alacritty() {
-  cat ~/.config/alacritty/base.yml ~/.config/alacritty/$1.yml > ~/.config/alacritty/alacritty.yml
-}
-
-colorscheme() {
-  case $1 in
-    papercolor)
-      color-alacritty $1
-      color-vim 'colorscheme papercolor\nset background=light'
-      ;;
-    gruvbox)
-      color-alacritty $1
-      color-vim 'colorscheme gruvbox\nset background=dark'
-      ;;
-    *)
-      echo "supported colorschemes: gruvbox, papercolor"
-      ;;
-  esac
-}
-
-# MUX CONFIG
-#-------------------
-export REPO=$GOPATH/src/github.com/muxinc/mux
-# google cloud sdk PATH & completion
-if [ -f '/Users/skhan/lib/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/skhan/lib/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/Users/skhan/lib/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/skhan/lib/google-cloud-sdk/completion.zsh.inc'; fi
-
-# MUX ALIASES
-#-------------------
-alias gomux="cd ~/go/src/github.com/muxinc/mux"
-alias gocf="cd ~/go/src/github.com/muxinc/mux/ops/cloudflare"
-alias kaw2="kubectx aws-us-west-2-vos1-admin@aws-us-west-2-vos1"
-alias kgcpw1="kubectx gcp-us-west1-vos1-admin@gcp-us-west1-vos1"
-alias kgcew1="kubectx us-west1.gce.k8s.mux.io"
-alias kge1="kubectx us-east1.gce.k8s.mux.io"
-alias kge4="kubectx us-east4.gce.k8s.mux.io"
-alias k8="/usr/local/bin/kubectl1.8"
-alias k23="/usr/local/bin/kubectl1.23"
-
-# MUX HELPERS
-#-------------------
-function thing () {
-  echo "hi"
-}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

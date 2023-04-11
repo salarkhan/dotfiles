@@ -8,5 +8,5 @@ indent = { tab-width = 2, unit = "  " }
 roots = []
 
 [[grammar]]
-name = "vcl"
+name = "vcl" # use the ruby treesitter because one for vcl doesnt exist
 source = { git = "https://github.com/tree-sitter/tree-sitter-ruby", rev = "206c7077164372c596ffa8eaadb9435c28941364" }
