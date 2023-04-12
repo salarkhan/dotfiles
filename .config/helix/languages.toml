@@ -10,3 +10,22 @@ roots = []
 [[grammar]]
 name = "vcl" # use the ruby treesitter because one for vcl doesnt exist
 source = { git = "https://github.com/tree-sitter/tree-sitter-ruby", rev = "206c7077164372c596ffa8eaadb9435c28941364" }
+[[language]]
+name = "vcl"
+scope = "source.vcl"
+injection-regex = "vcl"
+file-types = ["vcl"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+roots = []
+grammar = "python"
+
+[[language]]
+name = "styri"
+scope = "source.sy"
+injection-regex = "sy"
+file-types = ["sy"]
+comment-token = "#"
+indent = { tab-width = 4, unit = "    " }
+roots = []
+grammar = "python"
