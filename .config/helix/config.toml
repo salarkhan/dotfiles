@@ -1,6 +1,5 @@
 # visual
-theme = "autumn"
-# theme = "papercolor-light"
+theme = "github_light_mod"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -10,9 +9,15 @@ select = "underline"
 # config
 [editor]
 auto-pairs = false 
-completion-trigger-len = 4
+completion-trigger-len = 2
 bufferline = "always"
 text-width = 100
+
+[editor.soft-wrap]
+enable = true
+
+[editor.file-picker]
+hidden = false
 
 [editor.lsp]
 auto-signature-help = false

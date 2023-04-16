@@ -1,0 +1,9 @@
+inherits = "github_light"
+
+[palette]
+"scale.blue.8" = "#13499c"
+"scale.blue.6" = "#216bff"
+"canvas.default" = "#eeeeee"
+"canvas.overlay" = "#eeeeee"
+"border.default" = "#ffffff"
+"neutral.subtle" = "#ffffff"
