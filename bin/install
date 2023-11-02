@@ -1,6 +1,16 @@
-fd
-jq
-ripgrep
-rbenv
-sqlite
-helix
+brew install
+	zplug
+	neovim
+	fd
+	jq
+	ripgrep
+	go
+	kubectx
+	openssl 
+	readline 
+	sqlite3 
+	xz 
+	zlib 
+	tcl-tk
+	asdf (kubectl, node, python3, ruby)
+	vault

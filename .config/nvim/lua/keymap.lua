@@ -10,11 +10,11 @@ m.lsp_keys = function(client, bufnr)
 	end
 
 	-- goto
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts())
-	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts())
-	vim.keymap.set("n", 'K', vim.lsp.buf.hover, opts())
-	vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts())
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts())
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("go to definition"))
+	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("go to declaration"))
+	vim.keymap.set("n", 'K', vim.lsp.buf.hover, opts("hover"))
+	vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts("go to implementation"))
+	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts("go to reference"))
 	-- lsp
 	vim.keymap.set("n", "<leader>lv", vim.diagnostic.open_float, opts("open float"))
 	vim.keymap.set("n", "<leader>li", function() vim.cmd("LspInfo") end, opts("info"))

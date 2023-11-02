@@ -20,6 +20,7 @@ require('lazy').setup({
   'tpope/vim-rhubarb',  -- gbrowse
   'tpope/vim-surround', -- motions for surrounding text objects
   'tpope/vim-sleuth',   -- detect tabstop and shiftwidth automatically
+  'mg979/vim-visual-multi', -- i am a heretic
 
   -- theme
   {
@@ -54,7 +55,13 @@ require('lazy').setup({
     },
   },
 
-  { 'folke/which-key.nvim',  opts = {} }, -- show pending keybinds.
+  -- show pending keybinds
+  { 'folke/which-key.nvim',  
+    opts = {
+      window = { margin = { 1, 0, 0, 0.6 } },
+      layout = { height = { min = 4, max = 75 } },
+    } 
+  },
 
   -- statusline helper, see `:help lualine.txt`
   {
@@ -82,13 +89,9 @@ require('lazy').setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-      -- Only load if `make` is available. Make sure you have the system
-      -- requirements installed.
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        -- NOTE: If you are having trouble with this installation,
-        --       refer to the README for telescope-fzf-native for more instructions.
+        -- refer to the README for telescope-fzf-native for more instructions.
         build = 'make',
         cond = function()
           return vim.fn.executable 'make' == 1
