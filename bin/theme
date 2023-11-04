@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# get
+THEME=$(defaults read -g AppleInterfaceStyle 2> /dev/null)
+
+# set
+if [ -z $THEME ]; then
+  sed -i'' -e 's/theme = ".*"/theme = "github_light_mod"/' ${HOME}/.config/helix/config.toml
+  kitty +kitten themes --reload-in=all github
+else
+  sed -i'' -e 's/theme = ".*"/theme = "autumn"/' ${HOME}/.config/helix/config.toml
+  kitty +kitten themes --reload-in=all monokai
+fi
+
+# refresh helix
+pkill -USR1 hx
