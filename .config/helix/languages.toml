@@ -17,3 +17,7 @@ comment-token = "#"
 indent = { tab-width = 4, unit = "    " }
 roots = []
 grammar = "python"
+
+[[language]]
+name = "racket"
+auto-format = true
