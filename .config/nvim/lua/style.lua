@@ -1,5 +1,4 @@
 -- visual settings
-vim.o.background = 'dark'
 vim.wo.number = true
 vim.wo.signcolumn = 'yes'
 vim.o.termguicolors = true
@@ -39,7 +38,7 @@ vim.o.undofile = true
 
 -- decrease update time
 vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 100
 
 -- set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'

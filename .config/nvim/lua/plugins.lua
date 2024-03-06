@@ -22,25 +22,43 @@ require('lazy').setup({
   'tpope/vim-sleuth',   -- detect tabstop and shiftwidth automatically
   'mg979/vim-visual-multi', -- i am a heretic
 
-  -- theme
+  -- themes
   {
     'sainnhe/sonokai',
-    -- 'pappasam/papercolor-theme-slim',
-    priority = 1000,
+    lazy = false,
     config = function()
+      vim.o.background = 'dark'
       vim.cmd.colorscheme 'sonokai'
+    end
+  },
+  {
+   'projekt0n/github-nvim-theme',
+    lazy = false,
+    config = function()
+      require('github-theme').setup({
+        palettes={
+          all = {}
+        }
+      })
+      vim.o.background = 'light'
+      -- vim.cmd.colorscheme 'github_light'
     end,
   },
 
   -- note: this is where plugins related to lsp can be installed.
   {
-    'neovim/nvim-lspconfig',                                    -- lsp configuration & plugins
+    -- lsp configuration & plugins
+    'neovim/nvim-lspconfig', 
     dependencies = {
-      { 'williamboman/mason.nvim', config = true },             -- auto install lsp to stdpath
-      'williamboman/mason-lspconfig.nvim',                      -- bridges mason vs lspconfig plugin
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} }, -- useful status updates for lsp
+      -- auto install lsp to stdpath
+      { 'williamboman/mason.nvim', config = true },            
+      -- bridges mason vs lspconfig plugin
+      'williamboman/mason-lspconfig.nvim',                      
+      -- useful status updates for lsp
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} }, 
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      'folke/neodev.nvim',                                      -- configs lua-ls for nvim API re: working in init.lua
+      -- configs lua-ls for nvim API re: working in init.lua
+      'folke/neodev.nvim',                                      
     },
   },
 
@@ -48,18 +66,29 @@ require('lazy').setup({
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
-      'L3MON4D3/LuaSnip',             -- snippet engine
-      'saadparwaiz1/cmp_luasnip',     -- nvim-cmp src for engine
-      'hrsh7th/cmp-nvim-lsp',         -- adds lsp completion capabilities
-      'rafamadriz/friendly-snippets', -- adds a number of user-friendly snippets
+      -- snippet engine
+      'L3MON4D3/LuaSnip',             
+      -- nvim-cmp src for engine
+      'saadparwaiz1/cmp_luasnip',    
+      -- adds lsp completion capabilities
+      'hrsh7th/cmp-nvim-lsp',        
+      -- adds a number of user-friendly snippets
+      'rafamadriz/friendly-snippets',    
     },
   },
 
   -- show pending keybinds
   { 'folke/which-key.nvim',  
+    event = "VeryLazy",
     opts = {
-      window = { margin = { 1, 0, 0, 0.6 } },
-      layout = { height = { min = 4, max = 75 } },
+      window = { 
+        border = "single", 
+        margin = { 1, 0, 0, 0.7 }, 
+      },
+      layout = { 
+        height = { min = 4, max = 75 },
+        width = { min = 5, max = 50 }, 
+      },
     } 
   },
 
