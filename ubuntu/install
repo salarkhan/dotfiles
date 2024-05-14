@@ -1,0 +1,8 @@
+binaries
+- xclip
+- asdf (node, go, python, ruby)
+- git
+- curl
+- rg
+- gopls
+- python env: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
