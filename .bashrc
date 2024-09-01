@@ -22,10 +22,18 @@ shopt -s checkwinsize
 # config asdf shims etc
 . "$HOME/.asdf/asdf.sh"
 
-# PATH config
+# HELPERS
 # ------------------------------
-export PATH="$HOME/.local/bin:$PATH"
-# export PATH="$HOME/go/bin:$PATH"
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+add_to_path() {
+  case ":$PATH:" in
+    *":$1:"*) :;; # already there
+    *) PATH="$1:$PATH";; # or PATH="$PATH:$1"
+  esac
+}
 
 # COMPLETION config
 # ------------------------------
@@ -59,8 +67,7 @@ alias iv="cd ~/code/interviewing/2024"
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
-# HELPERS
+# PATH config
 # ------------------------------
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
+add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/go/bin"

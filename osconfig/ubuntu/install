@@ -7,7 +7,7 @@ apps
 
 bins
 - xclip
-- asdf (node, go, python, ruby)
+- asdf
 - git
 - curl
 - rg
