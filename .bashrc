@@ -20,11 +20,12 @@ HISTFILESIZE=2000
 shopt -s checkwinsize
 
 # config asdf shims etc
-. "$HOME/.asdf/asdf.sh"
+# . "$HOME/.asdf/asdf.sh"
 
 # PATH config
 # ------------------------------
-export PATH="$HOME/Go/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+# export PATH="$HOME/go/bin:$PATH"
 
 # COMPLETION config
 # ------------------------------
@@ -40,34 +41,23 @@ if ! shopt -oq posix; then
 fi
 
 # asdf
-. "$HOME/.asdf/completions/asdf.bash"
+# . "$HOME/.asdf/completions/asdf.bash"
 
+# LS config
+# ------------------------------
+alias ll='ls -valF --color=never'
+alias ls='ls --color=never'
 
 # ALIAS config
 # ------------------------------
-alias eb="hx ~/.bashrc"
-alias et="hx ~/.config/helix/config.toml"
+alias eb="hx ~/dotfiles/.bashrc"
+alias ek="hx ~/dotfiles/.config/kitty/kitty.conf"
+alias ex="hx ~/dotfiles/.config/helix/config.toml"
 alias rb="source ~/.bashrc"
-
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias iv="cd ~/code/interviewing/2024"
 
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
 
 # HELPERS
 # ------------------------------

@@ -1,0 +1,2 @@
+- configure this repo to work with gnu-stow across work(mac) / personal(linux)
+- script app installs for linux work (prefer flatpak re: non-ubuntu distros)
