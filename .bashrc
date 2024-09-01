@@ -20,7 +20,7 @@ HISTFILESIZE=2000
 shopt -s checkwinsize
 
 # config asdf shims etc
-# . "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/asdf.sh"
 
 # PATH config
 # ------------------------------
@@ -41,7 +41,7 @@ if ! shopt -oq posix; then
 fi
 
 # asdf
-# . "$HOME/.asdf/completions/asdf.bash"
+. "$HOME/.asdf/completions/asdf.bash"
 
 # LS config
 # ------------------------------
