@@ -1,5 +1,5 @@
 # visual
-theme = "github_light_mod"
+theme = "github_mod"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -8,10 +8,13 @@ select = "underline"
 
 # config
 [editor]
-auto-pairs = false 
-completion-trigger-len = 2
+auto-pairs = true 
+auto-completion = false
 bufferline = "always"
 text-width = 100
+
+[editor.statusline]
+left = ["mode", "spinner", "file-absolute-path", "read-only-indicator", "file-modification-indicator"]
 
 [editor.soft-wrap]
 enable = true
@@ -26,7 +29,9 @@ display-messages = true
 # remaps
 [keys.normal]
 C-c = ["keep_primary_selection", "collapse_selection"]
-g = { c = { c = "toggle_comments", s = "signature_help"}}
+g.c = "toggle_comments"
+space.e = "file_picker_in_current_buffer_directory"
+# space.o = ":sh gh repo view --web"
 
 [keys.select]
 C-c = "normal_mode" 
