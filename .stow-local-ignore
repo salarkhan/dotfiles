@@ -1,0 +1,13 @@
+# stow defaults, minus some
+\.git
+\.gitignore
+\.gitmodules
+
+.+~          # emacs backup files
+\#.*\#       # emacs autosave files
+
+# things i want to track in this repo, dont symlink em tho
+fonts
+osconfig
+README.md
+TODO.md

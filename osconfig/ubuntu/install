@@ -1,0 +1,19 @@
+# linux
+apps
+- slack
+- zoom
+- spotify
+- kitty
+
+bins
+- xclip
+- asdf (node, go, python, ruby)
+- git
+- curl
+- rg
+- gopls
+- jq
+- ripgrep
+- kubectx
+- k8s
+- helix
