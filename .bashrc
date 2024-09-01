@@ -54,7 +54,7 @@ fi
 # LS config
 # ------------------------------
 alias ll='ls -valF --color=never'
-alias ls='ls --color=never'
+alias ls='ls -va --color=never'
 
 # ALIAS config
 # ------------------------------

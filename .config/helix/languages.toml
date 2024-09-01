@@ -1,3 +1,23 @@
+use-grammars = { only = [
+ "rust",
+ "javascript",
+ "python",
+ "rust",
+ "bash",
+ "ruby",
+ "java", 
+ "env",
+ "toml",
+ "yaml",
+ "json",
+ "mermaid",
+ "markdown",
+ "lua",
+ "html",
+ "css",
+ "dockerfile"
+]}
+
 [[language]]
 name = "vcl"
 scope = "source.vcl"
