@@ -1,0 +1,19 @@
+inherits = "github_light"
+
+
+# function = { fg = "#7548c8", modifiers = ["bold"] } # dark purp
+function = { fg = "#454545", modifiers = ["bold"] }
+# "variable.other.member" = "done.fg"
+# type = { fg = "scale.orange.6", modifiers = ["bold"] }
+# "type.builtin" = { fg = "scale.blue.6", modifiers = ["bold"] }
+# keyword = { fg = "scale.red.5", modifiers = ["bold"] }
+
+
+
+[palette]
+"scale.blue.8" = "#1654b3"
+"scale.blue.6" = "#216bff"
+"canvas.default" = "#f4f4f4"
+"canvas.overlay" = "#f4f4f4"
+"border.default" = "#ffffff"
+"neutral.subtle" = "#ffffff"
