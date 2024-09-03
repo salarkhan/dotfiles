@@ -1,14 +1,15 @@
 #!/bin/bash
 
-# get
-THEME=$(defaults read -g AppleInterfaceStyle 2> /dev/null)
+# use system settings (osx)
+# THEME=$(defaults read -g AppleInterfaceStyle 2> /dev/null)
+
 
 # set
-if [ -z $THEME ]; then
-  sed -i'' -e 's/theme = ".*"/theme = "github_light_mod"/' ${HOME}/.config/helix/config.toml
+if [ $1 = 'light' ]; then
+  sed -i'' -e 's/theme = ".*"/theme = "github_mod"/' ${HOME}/.config/helix/config.toml
   kitty +kitten themes --reload-in=all github
 else
-  sed -i'' -e 's/theme = ".*"/theme = "autumn"/' ${HOME}/.config/helix/config.toml
+  sed -i'' -e 's/theme = ".*"/theme = "gruvbox_mod"/' ${HOME}/.config/helix/config.toml
   kitty +kitten themes --reload-in=all monokai
 fi
 

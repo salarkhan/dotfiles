@@ -19,8 +19,9 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# config asdf shims etc
+# config asdf shims, language things, etc
 . "$HOME/.asdf/asdf.sh"
+. .venv/bin/activate
 
 # HELPERS
 # ------------------------------
@@ -63,6 +64,7 @@ alias ek="hx ~/dotfiles/.config/kitty/kitty.conf"
 alias ex="hx ~/dotfiles/.config/helix/config.toml"
 alias rb="source ~/.bashrc"
 alias iv="cd ~/code/interviewing/2024"
+alias dang="cd ~/code/interviewing/2024/practice/dangoor"
 
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
