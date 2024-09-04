@@ -15,23 +15,32 @@ install_snap() {
 
 install_apt() {
 	declare -a bins=(
+		"stow"
 		"xclip"
-		"asdf"
 		"curl"
 		"jq"
 		"ripgrep"
 		"k8s"
-		"helix"
 		"g++"
+		"helix"
 	)
+
+	# add relevant PPAs
+	sudo add-apt-repository ppa:maveonair/helix-editor
+
+	# update before we let er rip
+	sudo apt update
 
 	for b in "${bins[@]}"
 	do
-		sudo apt-get install $b
+		sudo apt-get install -y $b
 	done
 }
 
 install_misc() {
+	#asdf
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.1
+
 	# python
 	sudo apt-get install python3.12-venv
 	python3 -m venv ~/.venv
