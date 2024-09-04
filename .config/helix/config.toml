@@ -1,5 +1,5 @@
 # visual
-theme = "github_mod"
+theme = "gruvbox_mod"
 
 [editor.cursor-shape]
 insert = "bar"

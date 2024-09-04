@@ -1,9 +1,5 @@
 # CONFIG
 # ------------------------------
-# wtf does history -a/-n do?!
-export PROMPT_COMMAND="history -a; history -n"
-export PS1="\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -12,8 +8,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -22,6 +18,11 @@ shopt -s checkwinsize
 # config asdf shims, language things, etc
 . "$HOME/.asdf/asdf.sh"
 . .venv/bin/activate
+
+# wtf does history -a/-n do?!
+export PROMPT_COMMAND="history -a; history -n"
+# put after venv activation
+export PS1="\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 # HELPERS
 # ------------------------------
