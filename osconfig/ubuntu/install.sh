@@ -50,6 +50,7 @@ install_misc() {
 	asdf install golang latest
 	asdf global golang latest
 	go install golang.org/x/tools/gopls@latest
+	asdf reshim golang
 
 	# node
 	asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git

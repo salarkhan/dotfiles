@@ -17,7 +17,7 @@ shopt -s checkwinsize
 
 # config asdf shims, language things, etc
 . "$HOME/.asdf/asdf.sh"
-. .venv/bin/activate
+. ~/.venv/bin/activate
 
 # wtf does history -a/-n do?!
 export PROMPT_COMMAND="history -a; history -n"
