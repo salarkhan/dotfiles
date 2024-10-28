@@ -74,3 +74,4 @@ alias pbpaste='xclip -selection clipboard -o'
 # ------------------------------
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/go/bin"
+. "$HOME/.cargo/env"
