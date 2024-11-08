@@ -1,3 +1,16 @@
+# HELPERS
+# ------------------------------
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+add_to_path() {
+  case ":$PATH:" in
+    *":$1:"*) :;; # already there
+    *) PATH="$1:$PATH";; # or PATH="$PATH:$1"
+  esac
+}
+
 # CONFIG
 # ------------------------------
 # don't put duplicate lines or lines starting with space in the history.
@@ -24,20 +37,7 @@ export PROMPT_COMMAND="history -a; history -n"
 # put after venv activation
 export PS1="\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 
-# HELPERS
-# ------------------------------
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-add_to_path() {
-  case ":$PATH:" in
-    *":$1:"*) :;; # already there
-    *) PATH="$1:$PATH";; # or PATH="$PATH:$1"
-  esac
-}
-
-# COMPLETION config
+# COMPLETION
 # ------------------------------
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -53,13 +53,11 @@ fi
 # asdf
 . "$HOME/.asdf/completions/asdf.bash"
 
-# LS config
+# ALIAS
 # ------------------------------
 alias ll='ls -valF --color=never'
 alias ls='ls -vaF --color=never'
 
-# ALIAS config
-# ------------------------------
 alias eb="hx ~/dotfiles/.bashrc"
 alias ek="hx ~/dotfiles/.config/kitty/kitty.conf"
 alias ex="hx ~/dotfiles/.config/helix/config.toml"
@@ -70,7 +68,7 @@ alias dang="cd ~/code/interviewing/2024/practice/dangoor"
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
-# PATH config
+# PATH
 # ------------------------------
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/go/bin"

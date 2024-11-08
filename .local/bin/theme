@@ -3,13 +3,14 @@
 # use system settings (osx)
 # THEME=$(defaults read -g AppleInterfaceStyle 2> /dev/null)
 
+hxconf=${HOME}/.config/helix/config.toml
 
-# set
+# bsd sed can't edit symlinks in place, and neither can awk, so we use gnu-sed
 if [ $1 = 'light' ]; then
-  sed -i'' -e 's/theme = ".*"/theme = "github_mod"/' ${HOME}/.config/helix/config.toml
+  gsed --follow-symlinks -i 's/theme = ".*"/theme = "github_mod"/' ${hxconf}
   kitty +kitten themes --reload-in=all github
 else
-  sed -i'' -e 's/theme = ".*"/theme = "gruvbox_mod"/' ${HOME}/.config/helix/config.toml
+  gsed --follow-symlinks -i 's/theme = ".*"/theme = "gruvbox_mod"/' ${hxconf}
   kitty +kitten themes --reload-in=all monokai
 fi
 

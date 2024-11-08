@@ -1,17 +1,11 @@
-# macos
-brew install
-	zplug
-	neovim
-	fd
-	jq
-	ripgrep
-	go
-	kubectx
-	openssl 
-	readline 
-	sqlite3 
-	xz 
-	zlib 
-	tcl-tk
-	asdf (kubectl, node, python3, ruby)
-	vault
+# homebrew
+brew install \ 
+	fd \
+	jq \
+	ripgrep \
+	asdf \
+	stow \
+	gnu-sed	
+
+# manual
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
