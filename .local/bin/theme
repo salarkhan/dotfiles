@@ -5,13 +5,17 @@
 
 hxconf=${HOME}/.config/helix/config.toml
 
+# Check if an argument was provided
+if [ -z "$1" ]; then
+  echo "Error: No argument provided. Usage: $0 [light|dark]"
+  exit 1
+fi
+
 # bsd sed can't edit symlinks in place, and neither can awk, so we use gnu-sed
 if [ $1 = 'light' ]; then
   gsed --follow-symlinks -i 's/theme = ".*"/theme = "github_mod"/' ${hxconf}
-  kitty +kitten themes --reload-in=all github
 else
   gsed --follow-symlinks -i 's/theme = ".*"/theme = "gruvbox_mod"/' ${hxconf}
-  kitty +kitten themes --reload-in=all monokai
 fi
 
 # refresh helix

@@ -42,6 +42,7 @@ alias vi="nvim"
 alias ev="hx ~/.config/nvim"
 alias eb="hx ~/.zshrc"
 alias ek="hx ~/.config/kitty/kitty.conf"
+alias eg="hx ~/.config/ghostty/config"
 alias ex="hx ~/.config/helix/config.toml"
 
 alias rb="exec zsh"

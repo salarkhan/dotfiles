@@ -7,12 +7,17 @@
   ui = auto
 [core]
   editor = hx
+  pager = delta
 [alias]
   olog = log --oneline
   s = status --short
   br = branch
   co = checkout
-[difftool]
-  prompt = false
-[diff]
-  tool = vimdiff
+
+# delta settings
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true  # use n and N to move between diff sections
+[merge]
+    conflictstyle = zdiff3
